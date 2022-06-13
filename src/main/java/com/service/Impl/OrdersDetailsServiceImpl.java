@@ -18,27 +18,29 @@ public class OrdersDetailsServiceImpl implements OrdersDetailsService {
     private OrdersDetailsDao ordersDetailsDao;
 
     @Override
-    public boolean save(OrdersDetails ordersDetails) {
-        return false;
+    public List<OrdersDetails> getAll(Integer orders_id) {
+        return ordersDetailsDao.getAll(orders_id);
     }
 
     @Override
-    public boolean update(OrdersDetails ordersDetails) {
-        return false;
+    public int getWarehouseId(OrdersDetails ordersDetails) {
+        return ordersDetailsDao.getWarehouseId(ordersDetails);
+    }
+
+    @Override
+    public boolean save(OrdersDetails ordersDetails) {
+        return ordersDetailsDao.save(ordersDetails)>0;
     }
 
     @Override
     public boolean delete(Integer id) {
-        return false;
+        return ordersDetailsDao.delete(id)>0;
     }
 
     @Override
-    public User getById(Integer id) {
-        return null;
+    public List<OrdersDetails> find(OrdersDetails ordersDetails) {
+        return ordersDetailsDao.find(ordersDetails);
     }
 
-    @Override
-    public List<OrdersDetails> getAll(Integer orders_id) {
-        return ordersDetailsDao.getAll(orders_id);
-    }
+
 }

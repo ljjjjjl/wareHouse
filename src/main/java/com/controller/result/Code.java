@@ -17,7 +17,10 @@ public class Code {
     public static final Integer LOGIN_ERR = 20060;
     public static final Integer LOGOUT_ERR = 20070;
 
-    public static final Integer SQL_PEPEATUSER_ERR =50001;
+    public static final Integer SQL_REPEATUSER_ERR =50001;
+    public static final Integer SQL_LESSTHANZERO_ERR =50002;
+
+
 
     public static final Integer SYSTEM_UNKNOW_ERR = 99999;
 

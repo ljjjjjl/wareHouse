@@ -2,9 +2,7 @@ package com.controller;
 
 import com.controller.result.Code;
 import com.controller.result.Result;
-import com.domain.User;
 import com.domain.Warehouse;
-import com.service.UserService;
 import com.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

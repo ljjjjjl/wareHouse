@@ -42,3 +42,4 @@ com\controller\result\Code.class
 com\dao\OrdersDetailsDao.class
 com\domain\OrdersDetails.class
 com\service\Impl\GoodsDetailsServiceImpl.class
+com\domain\WarehouseDetails.class

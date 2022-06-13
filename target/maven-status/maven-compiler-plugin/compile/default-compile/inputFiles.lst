@@ -22,6 +22,7 @@ D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\dao\OrdersDao.j
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\service\WarehouseService.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\controller\WarehouseDetailsController.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\domain\Goods.java
+D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\domain\WarehouseDetails.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\service\Impl\WarehouseDetailsServiceImpl.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\controller\OrdersController.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\service\Impl\WarehouseServiceImpl.java

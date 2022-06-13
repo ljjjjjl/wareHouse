@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean save(User user) {
         if (userDao.UNIQUE(user) >=1){
-            throw new SqlException(Code.SQL_PEPEATUSER_ERR,"该用户名已被占用");
+            throw new SqlException(Code.SQL_REPEATUSER_ERR,"该用户名已被占用");
         }
         System.out.println(userDao.UNIQUE(user));
         return userDao.save(user)>0;

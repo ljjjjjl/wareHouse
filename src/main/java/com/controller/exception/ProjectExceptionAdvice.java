@@ -13,6 +13,7 @@ public class ProjectExceptionAdvice {
     @ExceptionHandler(SqlException.class)
     public Result doSystemException(SqlException e){
         //记录日志
+        System.out.println("调用SqlException");
         return new Result(e.getCode(),null,e.getMessage());
     }
 
