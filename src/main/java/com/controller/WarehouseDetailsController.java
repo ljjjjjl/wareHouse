@@ -94,4 +94,25 @@ public class WarehouseDetailsController {
 
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
+
+//    @PutMapping("/out")
+//    public Result updateOut(@RequestBody WarehouseDetails warehouseDetails) {
+//        int num;
+//        boolean flag;
+//        warehouseDetails.setId(warehouseDetailsService.uniqueId(warehouseDetails));
+//        num =warehouseDetailsService.selectNum(warehouseDetails) -warehouseDetails.getNum();
+//
+//        if (flag){
+//
+//
+//            num =warehouseDetails.getNum() + warehouseDetailsService.selectNum(warehouseDetails);
+//            warehouseDetails.setNum(num);
+//            flag =warehouseDetailsService.updateNum(warehouseDetails);
+//
+//        }else {
+//            flag =warehouseDetailsService.save(warehouseDetails);
+//        }
+//
+//        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
+//    }
 }

@@ -42,5 +42,20 @@ public class OrdersDetailsServiceImpl implements OrdersDetailsService {
         return ordersDetailsDao.find(ordersDetails);
     }
 
+    @Override
+    public boolean updateIn(OrdersDetails ordersDetails) {
+        return ordersDetailsDao.updateIn(ordersDetails)>0;
+    }
+
+    @Override
+    public Integer getAmount(OrdersDetails ordersDetails) {
+        return ordersDetailsDao.getAmount(ordersDetails);
+    }
+
+    @Override
+    public OrdersDetails getById(Integer id) {
+        return ordersDetailsDao.getById(id);
+    }
+
 
 }

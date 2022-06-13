@@ -40,27 +40,27 @@ public interface OrdersDetailsService {
      * @return
      */
     public List<OrdersDetails> find(OrdersDetails ordersDetails);
-//
-//    /**
-//     * 修改
-//     * @param ordersDetails
-//     * @return
-//     */
-//    public boolean update(OrdersDetails ordersDetails);
-//
-//    /**
-//     * 按id删除
-//     * @param id
-//     * @return
-//     */
-//    public boolean delete(Integer id);
-//
-//    /**
-//     * 按id查询
-//     * @param id
-//     * @return
-//     */
-//    public User getById(Integer id);
+
+    /**
+     * 修改下单数
+     * @param ordersDetails
+     * @return
+     */
+    public boolean updateIn(OrdersDetails ordersDetails);
+
+    /**
+     * 按id删除
+     * @param ordersDetails
+     * @return
+     */
+    public Integer getAmount(OrdersDetails ordersDetails);
+
+    /**
+     * 按id查询
+     * @param id
+     * @return
+     */
+    public OrdersDetails getById(Integer id);
 
 
 }

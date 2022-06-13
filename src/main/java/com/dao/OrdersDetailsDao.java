@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.domain.GoodsDetails;
 import com.domain.OrdersDetails;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -17,6 +18,7 @@ public interface OrdersDetailsDao {
     @Select("select warehouse_id from orders o,orders_details od " +
             "where o.id =od.orders_id and o.id =#{orders_id} group by warehouse_id")
     public int getWarehouseId(OrdersDetails ordersDetails);
+
 
     @Insert("insert into orders_details " +
             "(amount,goods_details_id,orders_id)" +
@@ -40,4 +42,13 @@ public interface OrdersDetailsDao {
             "</script>"
     })
     public List<OrdersDetails> find(OrdersDetails ordersDetails);
+
+    @Update("update orders_details set amount =#{amount} where id =#{id}")
+    public int updateIn(OrdersDetails ordersDetails);
+
+    @Select("select amount from orders_details where id =#{id}")
+    public int getAmount(OrdersDetails ordersDetails);
+
+    @Select("select * from orders_details where id =#{id}")
+    public OrdersDetails getById(Integer id);
 }

@@ -76,4 +76,32 @@ public class OrdersDetailsController {
         return new Result(code,list,msg);
     }
 
+    @PutMapping("/in")
+    public Result updateIn(@RequestBody OrdersDetails ordersDetails) {
+        boolean flag ;
+        int pro =ordersDetailsService.getAmount(ordersDetails);
+        int after =ordersDetails.getAmount();
+        int D =after -=pro;
+
+        ordersDetails =ordersDetailsService.getById(ordersDetails.getId());//通过id找到全部信息，以调用写过的方法
+
+        Result result;
+        WarehouseDetails warehouseDetails = new WarehouseDetails();
+        warehouseDetails.setNum(D);
+        warehouseDetails.setWarehouse_id(ordersDetailsService.getWarehouseId(ordersDetails));
+        warehouseDetails.setGoods_details_id(ordersDetails.getGoods_details_id());
+        if (D <0)
+            result =warehouseDetailsController.saveOut(warehouseDetails);
+        else
+            result =warehouseDetailsController.saveIn(warehouseDetails);
+
+        if (result.getData().equals(true)){
+            ordersDetails.setAmount(after);//ordersDetails.Amount信息已被覆盖，此处重新导入
+            flag =ordersDetailsService.updateIn(ordersDetails);
+        }
+        else
+            flag =false;
+
+        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
+    }
 }
