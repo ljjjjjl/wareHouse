@@ -2,6 +2,7 @@ package com.controller;
 
 import com.controller.result.Code;
 import com.controller.result.Result;
+import com.domain.PageInfo;
 import com.domain.User;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,13 @@ public class UserController {
             msg = ",注销登录失败";
         }
         return new Result(code,username,msg);
+    }
+
+    @GetMapping("/page/{currentPage}")
+    public Result findByPage(@PathVariable int currentPage) {
+        PageInfo<User> list =userService.findByPage(currentPage);
+        Integer code = list!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = list!=null ?"":"数据查询失败！";
+        return new Result(code,list,msg);
     }
 }

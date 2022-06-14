@@ -1,5 +1,6 @@
 package com.service;
 
+import com.domain.PageInfo;
 import com.domain.User;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,4 +55,11 @@ public interface UserService {
      * @return
      */
     public boolean change(User user);
+
+
+    /**
+     * 获得用户列表页面的分页信息
+     * @return
+     */
+    public PageInfo<User> findByPage(int currentPage);
 }

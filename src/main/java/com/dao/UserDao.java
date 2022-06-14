@@ -1,10 +1,7 @@
 package com.dao;
 
 import com.domain.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -21,10 +18,8 @@ public interface UserDao {
     @Select("select *from user where id =#{id} and user_status =0")
     public User getById(Integer id);
 
-    @Select("select *from user")
+    @Select("select *from user where user_status =0")
     public List<User> getAll();
-
-
 
 
     @Select("select * from user where user_id =#{user_id} and user_password=#{user_password} and user_status =0")
@@ -36,4 +31,10 @@ public interface UserDao {
     //查询user_id是否唯一
     @Select("SELECT COUNT(id) FROM user WHERE user_id =#{user_id}")
     public int UNIQUE(User user);
+
+    @Select("select count(*) from user where user_status =0")
+    public int getTotal();
+
+    @Select("select * from user where user_status =0 limit #{start},#{size}")
+    List<User> findByPage(@Param("start") int start,@Param("size") int size);
 }
