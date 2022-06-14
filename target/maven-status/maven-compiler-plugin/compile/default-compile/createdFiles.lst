@@ -32,6 +32,7 @@ com\controller\exception\ProjectExceptionAdvice.class
 com\service\WarehouseDetailsService.class
 com\controller\WarehousreController.class
 com\dao\WarehouseDao.class
+com\domain\PageInfo.class
 com\controller\OrdersDetailsController.class
 com\controller\OrdersController.class
 com\domain\User.class

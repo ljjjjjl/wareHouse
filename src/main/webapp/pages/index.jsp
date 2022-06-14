@@ -1,51 +1,17 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page isELIgnored="false" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset=utf-8">
     <title>主页</title>
-    <link rel="stylesheet" href="../boot/css/bootstrap.min.css"/>
-    <script src="../boot/js/jquery-3.6.0.js"></script>
-    <script src="../boot/js/bootstrap.min.js"></script>
-    <script>
-        function System(){
-            $("#content").load("../pages/system.jsp")
-        };
+    <script type="text/javascript"  src="${pageContext.request.contextPath}/js/index.js"></script>
 
-        function Stock(){
-            $("#content").load("../pages/stock.jsp")
-        }
-        function Password(){
-            $("#content").load("../pages/changepw.html")
-        }
-        // 注销功能
-        function Logout(){
-            $.ajax({
-                type:"GET",
-                url:"/user/logout",
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                },
-                dataType:"json",
-                async: false,
-                success:function (result){
-                    var obj = typeof result=='string'?JSON.parse(result):result;
-                    console.log(obj.code);
-                    console.log(obj.msg);
-                    console.log(obj.data);
-                    if(result.code === 20071){
-                        alert(result.data+result.msg);
-                        window.location.href = "login.jsp";
-                    }else {
-                        alert(result.data+result.msg);
-                    }
-                },
-                error:function (){
-                    alert("系统繁忙，请重试！！！");
-                }
-            });
-        }
-    </script>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/boot/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/boot/js/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/boot/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -61,7 +27,7 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a>欢迎: <span class="text-danger text-center">${loginUser.user_name}</span></a></li>
+                <li><a>欢迎: <span class="text-danger text-center" id="usernameshow">${loginUser.user_name}</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户中心 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -143,7 +109,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>

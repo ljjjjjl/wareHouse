@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface UserDao {
-    @Insert("insert into user (user_id,user_password,user_name)values(#{user_id},#{user_password},#{user_name})")
+    @Insert("insert into user (user_id,user_name)values(#{user_id},#{user_name})")
     public int save(User user);
 
     @Update("update user set user_id =#{user_id},user_password=#{user_password},user_name=#{user_name} where id =#{id}")
@@ -31,6 +31,14 @@ public interface UserDao {
     //查询user_id是否唯一
     @Select("SELECT COUNT(id) FROM user WHERE user_id =#{user_id}")
     public int UNIQUE(User user);
+
+    @Select("select * from user where user_status=0 and (id like concat('%',#{keyword},'%') or user_id like concat('%',#{keyword},'%')" +
+            " or user_name like concat('%',#{keyword},'%'))")
+    List<User> search(String keyword);
+
+    @Select("select * from user where user_status=0 )")
+    List<User> searchNull();
+
 
     @Select("select count(*) from user where user_status =0")
     public int getTotal();

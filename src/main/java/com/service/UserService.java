@@ -51,10 +51,22 @@ public interface UserService {
     public User login(User user);
 
     /**
-     * 登录验证
+     * 密码修改
      * @return
      */
     public boolean change(User user);
+
+    /**
+     * 是否为唯一账号
+     * @return
+     */
+    public boolean UNIQUE(User user);
+
+    /**
+     * 多条件模糊查询
+     * @return
+     */
+    public List<User> search(String info);
 
 
     /**

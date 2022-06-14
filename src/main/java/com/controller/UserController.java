@@ -24,16 +24,31 @@ public class UserController {
 
     @PostMapping
     public Result save(@RequestBody User user) {
-        boolean flag =userService.save(user);
-        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
+        boolean flag =userService.UNIQUE(user);
+        String msg = "";
+        int code = Code.SYSTEM_UNKNOW_ERR;
+        if (flag){
+            msg = "账户名已被占用，请重试";
+            code = Code.SAVE_ERR;
+        }else {
+            boolean judge = userService.save(user);
+            if (!judge){
+                msg = "新增用户失败";
+                code = Code.SAVE_ERR;
+            }else {
+                msg = "新增用户成功";
+                code = Code.SAVE_OK;
+            }
+        }
+        return new Result(code,flag,msg);
     }
 
-//    @PutMapping
-//    public Result update(@RequestBody User user) {
-//        boolean flag =userService.update(user);
-//        return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
-//    }
     @PutMapping
+    public Result update(@RequestBody User user) {
+        boolean flag =userService.update(user);
+        return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
+    }
+    @DeleteMapping
     public Result change(@RequestBody User user) {
         boolean flag =userService.change(user);
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
@@ -60,6 +75,14 @@ public class UserController {
         Integer code = list!=null ? Code.GET_OK:Code.GET_ERR;
         String msg = list!=null ?"":"数据查询失败！";
         return new Result(code,list,msg);
+    }
+
+    @PatchMapping("/{info}")
+    public Result search(@PathVariable String info){
+        List<User>users = userService.search(info);
+        Integer code = users!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = users!=null ?"数据查询成功":"数据查询失败！";
+        return new Result(code,users,msg);
     }
 
     @PostMapping({"/login"})
@@ -90,6 +113,22 @@ public class UserController {
             msg = ",注销登录失败";
         }
         return new Result(code,username,msg);
+    }
+
+    @GetMapping("/username")
+    public Result usernameshow(){
+        Integer code = Code.SYSTEM_UNKNOW_ERR;
+        String msg = null;
+        User u = (User)request.getSession().getAttribute("loginUser");
+        try {
+            code = Code.GET_OK;
+            msg = "获取用户名成功";
+        }catch (Exception e){
+            e.printStackTrace();
+            code = Code.GET_ERR;
+            msg = "获取用户名失败";
+        }
+        return new Result(code,u,msg);
     }
 
     @GetMapping("/page/{currentPage}")

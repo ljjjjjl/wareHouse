@@ -4,6 +4,7 @@ D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\controller\User
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\service\GoodsDetailsService.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\dao\GoodsDao.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\dao\WarehouseDao.java
+D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\domain\PageInfo.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\domain\Warehouse.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\domain\User.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\dao\OrdersDetailsDao.java

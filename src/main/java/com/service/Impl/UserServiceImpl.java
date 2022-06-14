@@ -18,12 +18,15 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Override
     public boolean save(User user) {
-        if (userDao.UNIQUE(user) >=1){
-            throw new SqlException(Code.SQL_REPEATUSER_ERR,"该用户名已被占用");
-        }
-        System.out.println(userDao.UNIQUE(user));
         return userDao.save(user)>0;
     }
+//    public boolean save(User user) {
+//        if (userDao.UNIQUE(user) >=1){
+//            throw new SqlException(Code.SQL_REPEATUSER_ERR,"该用户名已被占用");
+//        }
+//        System.out.println(userDao.UNIQUE(user));
+//        return userDao.save(user)>0;
+//    }
 
     @Override
     public boolean update(User user) {
@@ -55,6 +58,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean change(User user) {
         return userDao.change(user)>0;
+    }
+
+    @Override
+    public boolean UNIQUE(User user) {
+        return userDao.UNIQUE(user)>0;
+    }
+
+    @Override
+    public List<User> search(String info) {
+        if (info ==null)
+            return userDao.searchNull();
+        else
+            return userDao.search(info);
     }
 
 
