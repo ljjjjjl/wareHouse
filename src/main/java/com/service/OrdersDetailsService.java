@@ -46,7 +46,7 @@ public interface OrdersDetailsService {
      * @param ordersDetails
      * @return
      */
-    public boolean updateIn(OrdersDetails ordersDetails);
+    public boolean update(OrdersDetails ordersDetails);
 
     /**
      * 按id删除

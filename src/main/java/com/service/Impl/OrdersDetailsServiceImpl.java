@@ -43,8 +43,8 @@ public class OrdersDetailsServiceImpl implements OrdersDetailsService {
     }
 
     @Override
-    public boolean updateIn(OrdersDetails ordersDetails) {
-        return ordersDetailsDao.updateIn(ordersDetails)>0;
+    public boolean update(OrdersDetails ordersDetails) {
+        return ordersDetailsDao.update(ordersDetails)>0;
     }
 
     @Override

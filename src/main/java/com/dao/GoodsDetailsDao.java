@@ -34,4 +34,5 @@ public interface GoodsDetailsDao {
 
     @Select("select *from goods_details where goods_id =#{goods_id} and status =0")
     public List<GoodsDetails> getAll(Integer goods_id);
+
 }

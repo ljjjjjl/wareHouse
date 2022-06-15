@@ -44,7 +44,7 @@ public interface OrdersDetailsDao {
     public List<OrdersDetails> find(OrdersDetails ordersDetails);
 
     @Update("update orders_details set amount =#{amount} where id =#{id}")
-    public int updateIn(OrdersDetails ordersDetails);
+    public int update(OrdersDetails ordersDetails);
 
     @Select("select amount from orders_details where id =#{id}")
     public int getAmount(OrdersDetails ordersDetails);

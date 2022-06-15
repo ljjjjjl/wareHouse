@@ -1,6 +1,8 @@
 package com.service;
 
 import com.domain.Goods;
+import com.domain.PageInfo;
+import com.domain.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -30,14 +32,30 @@ public interface GoodsService {
 
     /**
      * 查询
-     * @param goods
+     * @param keyword
      * @return
      */
-    public List<Goods> find(Goods goods);
+    public List<Goods> find(String keyword);
 
     /**
      * 查询全部
      * @return
      */
     public List<Goods> getAll();
+
+    public Goods getById(Integer id);
+
+    public boolean UNIQUE(Goods goods);
+
+    /**
+     * 获得用户列表页面的分页信息
+     * @return
+     */
+    public PageInfo<Goods> findByPage(int currentPage);
+
+    /**
+     * 多条件模糊查询
+     * @return
+     */
+    public PageInfo<Goods> search(String info,int currentPage);
 }

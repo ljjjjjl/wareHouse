@@ -2,7 +2,6 @@ package com.controller;
 
 import com.controller.result.Code;
 import com.controller.result.Result;
-import com.domain.GoodsDetails;
 import com.domain.OrdersDetails;
 import com.domain.WarehouseDetails;
 import com.service.OrdersDetailsService;
@@ -81,7 +80,7 @@ public class OrdersDetailsController {
         boolean flag ;
         int pro =ordersDetailsService.getAmount(ordersDetails);
         int after =ordersDetails.getAmount();
-        int D =after -=pro;
+        int D =after -pro;
 
         ordersDetails =ordersDetailsService.getById(ordersDetails.getId());//通过id找到全部信息，以调用写过的方法
 
@@ -90,18 +89,51 @@ public class OrdersDetailsController {
         warehouseDetails.setNum(D);
         warehouseDetails.setWarehouse_id(ordersDetailsService.getWarehouseId(ordersDetails));
         warehouseDetails.setGoods_details_id(ordersDetails.getGoods_details_id());
-        if (D <0)
+        if (D <0){
+            warehouseDetails.setNum(-D);
             result =warehouseDetailsController.saveOut(warehouseDetails);
+        }
         else
             result =warehouseDetailsController.saveIn(warehouseDetails);
 
         if (result.getData().equals(true)){
             ordersDetails.setAmount(after);//ordersDetails.Amount信息已被覆盖，此处重新导入
-            flag =ordersDetailsService.updateIn(ordersDetails);
+            flag =ordersDetailsService.update(ordersDetails);
         }
         else
             flag =false;
 
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
+
+//    @PutMapping("/out")
+//    public Result updateOut(@RequestBody OrdersDetails ordersDetails) {
+//        boolean flag ;
+//        int pro =ordersDetailsService.getAmount(ordersDetails);
+//        int after =ordersDetails.getAmount();
+//        int D = pro-after;
+//
+//        ordersDetails =ordersDetailsService.getById(ordersDetails.getId());//通过id找到全部信息，以调用写过的方法
+//
+//        Result result;
+//        WarehouseDetails warehouseDetails = new WarehouseDetails();
+//        warehouseDetails.setNum(D);
+//        warehouseDetails.setWarehouse_id(ordersDetailsService.getWarehouseId(ordersDetails));
+//        warehouseDetails.setGoods_details_id(ordersDetails.getGoods_details_id());
+//        if (D <0){
+//            warehouseDetails.setNum(-D);
+//            result =warehouseDetailsController.saveOut(warehouseDetails);
+//        }
+//        else
+//            result =warehouseDetailsController.saveIn(warehouseDetails);
+//
+//        if (result.getData().equals(true)){
+//            ordersDetails.setAmount(after);//ordersDetails.Amount信息已被覆盖，此处重新导入
+//            flag =ordersDetailsService.update(ordersDetails);
+//        }
+//        else
+//            flag =false;
+//
+//        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
+//    }
 }

@@ -1,12 +1,8 @@
 package com.dao;
 
 import com.domain.Goods;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.domain.User;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -28,18 +24,43 @@ public interface GoodsDao {
 
 
 
-    @Select({"<script>" +
-            "select *from goods where goods_status =0 " +
-            "<if test=\"goods_name != null and goods_name!=''\">" +
-            " and goods_name like concat('%',#{goods_name},'%')" +
-            "</if> " +
-            "<if test=\"goods_id != null and goods_id!=''\">" +
-            " and goods_id like concat('%',#{goods_id},'%') " +
-            "</if>"+
-            "</script>"
-    })
-    public List<Goods> find(Goods goods);
+//    @Select({"<script>" +
+//            "select *from goods where goods_status =0 " +
+//            "<if test=\"goods_name != null and goods_name!=''\">" +
+//            " and goods_name like concat('%',#{goods_name},'%')" +
+//            "</if> " +
+//            "<if test=\"goods_id != null and goods_id!=''\">" +
+//            " and goods_id like concat('%',#{goods_id},'%') " +
+//            "</if>"+
+//            "</script>"
+//    })
+    @Select("select *from goods where goods_status =0 and (goods_name like concat('%',#{keyword},'%') " +
+            "or goods_id like concat('%',#{keyword},'%') or id like concat('%',#{keyword},'%'))")
+    public List<Goods> find(String keyword);
 
     @Select("select *from goods where goods_status =0")
     public List<Goods> getAll();
+
+    @Select("select *from goods where goods_status =0 and id = #{id}")
+    public Goods getById(Integer id);
+
+    @Select("SELECT COUNT(id) FROM goods WHERE goods_id=#{goods_id} and goods_status=0")
+    int UNIQUE(Goods goods);
+
+
+
+    @Select("select count(*) from goods where goods_status =0")
+    int getTotal();
+    @Select("select * from goods where goods_status =0 limit #{start},#{size}")
+    List<Goods> findByPage(@Param("start") int start, @Param("size") int size);
+
+    @Select("select count(*) from goods where goods_status =0 and " +
+            "(goods_name like concat('%',#{keyword},'%') " +
+            "or goods_id like concat('%',#{keyword},'%') or id like concat('%',#{keyword},'%'))")
+    int searchTotal(String keyword);
+    @Select("select * from goods where goods_status =0 and " +
+            "(goods_name like concat('%',#{keyword},'%') " +
+            "or goods_id like concat('%',#{keyword},'%') or id like concat('%',#{keyword},'%'))")
+    List<Goods> search(@Param("keyword")String keyword,@Param("start") int start,@Param("size") int size);
+
 }
