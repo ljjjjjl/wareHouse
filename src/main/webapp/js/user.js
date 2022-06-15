@@ -1,8 +1,11 @@
 // 用户列表查询
 function SelectUserlist(){
     $.ajax({
-        type:"GET",
-        url:"/user",
+        type:"POST",
+        url:"/user/page",
+        data:JSON.stringify({
+            "currentPage": 1
+        }),
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         },
@@ -13,7 +16,7 @@ function SelectUserlist(){
             if(obj.code === 20041){
                 // $("#userlists").empty();
                 var p=obj.data;
-                userView(p);
+                pageView(p);
             }else {
                 alert(obj.msg);
             }
@@ -22,6 +25,49 @@ function SelectUserlist(){
             alert("系统繁忙，请重试！！！");
         }
     });
+}
+function SelectUserlistByPage(page){
+    $.ajax({
+        type:"POST",
+        url:"/user/page",
+        data:JSON.stringify({
+            "currentPage": page
+        }),
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        },
+        dataType:"json",
+        async: false,
+        success:function (result){
+            var obj = typeof result=='string'?JSON.parse(result):result;
+            if(obj.code === 20041){
+                // $("#userlists").empty();
+                var p=obj.data;
+                pageView(p);
+            }else {
+                alert(obj.msg);
+            }
+        },
+        error:function(){
+            alert("系统繁忙，请重试！！！");
+        }
+    });
+}
+//页码显示
+function pageView(p){
+    $("#currentPage").empty()
+    console.log(p.currentPage)
+
+    $("#currentPage").append("<li> <a onclick='SelectUserlistByPage("+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
+    for (let i = 1; i <= p.totalPage; i++){
+        if (p.currentPage ===i)
+            $("#currentPage").append("<li class='active'><a onclick='SelectUserlistByPage("+i+")'>" + i +"</a><li/>");
+        else
+            $("#currentPage").append("<li ><a onclick='SelectUserlistByPage("+i+")'>" + i +"</a><li/>");
+    }
+    $("#currentPage").append("<li> <a onclick='SelectUserlistByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
+
+    userView(p.list)
 }
 // 用户列表显示
 function userView(list){
@@ -150,20 +196,31 @@ function userDelete(id){
 }
 //用户查询
 function userSearch(){
+
     const info = $("#userquery").val();
-    console.log(info)
     if (info === ""){
         SelectUserlist()
     }else {
+        console.log(info)
         $.ajax({
-            type:"PATCH",
-            url:"/user/"+info,
+            type:"POST",
+            url:"/user/info",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            data:JSON.stringify({
+                "currentPage": 1,
+                "info":info
+            }),
+            dataType:"json",
+            async: false,
             success:function (result){
                 var obj = typeof result=='string'?JSON.parse(result):result;
+                console.log(obj.data.list)
                 if(obj.code === 20041){
                     // $("#userlists").empty();
                     var p=obj.data;
-                    userView(p);
+                    infoPageView(p);
                 }else {
                     alert(obj.msg);
                 }
@@ -175,4 +232,56 @@ function userSearch(){
     }
 
 }
-//跳转到货品明细列表
+function userSearchByPage(page){
+
+    const info = $("#userquery").val();
+    if (info === ""){
+        SelectUserlist()
+    }else {
+        console.log(info)
+        $.ajax({
+            type:"POST",
+            url:"/user/info",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            data:JSON.stringify({
+                "currentPage": page,
+                "info":info
+            }),
+            dataType:"json",
+            async: false,
+            success:function (result){
+                var obj = typeof result=='string'?JSON.parse(result):result;
+                console.log(obj.data.list)
+                if(obj.code === 20041){
+                    // $("#userlists").empty();
+                    var p=obj.data;
+                    infoPageView(p);
+                }else {
+                    alert(obj.msg);
+                }
+            },
+            error:function(){
+                alert("系统繁忙，请重试！！！");
+            }
+        });
+    }
+
+}
+//页码显示(用户查询)
+function infoPageView(p){
+    $("#currentPage").empty()
+    console.log(p.currentPage)
+
+    $("#currentPage").append("<li> <a onclick='userSearchByPage("+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
+    for (let i = 1; i <= p.totalPage; i++){
+        if (p.currentPage ===i)
+            $("#currentPage").append("<li class='active'><a onclick='userSearchByPage("+i+")'>" + i +"</a><li/>");
+        else
+            $("#currentPage").append("<li ><a onclick='userSearchByPage("+i+")'>" + i +"</a><li/>");
+    }
+    $("#currentPage").append("<li> <a onclick='userSearchByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
+
+    userView(p.list)
+}

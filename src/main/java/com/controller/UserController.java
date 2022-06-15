@@ -77,16 +77,10 @@ public class UserController {
         return new Result(code,list,msg);
     }
 
-    @PatchMapping("/{info}")
-    public Result search(@PathVariable String info){
-        List<User>users = userService.search(info);
-        Integer code = users!=null ? Code.GET_OK:Code.GET_ERR;
-        String msg = users!=null ?"数据查询成功":"数据查询失败！";
-        return new Result(code,users,msg);
-    }
+
 
     @PostMapping({"/login"})
-    public Result login(@RequestBody User user,HttpServletRequest request){
+    public Result login(@RequestBody User user){
         User u =userService.login(user);
         Integer code = u!=null ? Code.LOGIN_OK:Code.LOGIN_ERR;
         String msg = u!=null ?"登录成功":"数据查询失败！";
@@ -131,11 +125,19 @@ public class UserController {
         return new Result(code,u,msg);
     }
 
-    @GetMapping("/page/{currentPage}")
-    public Result findByPage(@PathVariable int currentPage) {
-        PageInfo<User> list =userService.findByPage(currentPage);
-        Integer code = list!=null ? Code.GET_OK:Code.GET_ERR;
-        String msg = list!=null ?"":"数据查询失败！";
-        return new Result(code,list,msg);
+    @PostMapping("/page")
+    public Result findByPage(@RequestBody PageInfo pageInfo) {
+        PageInfo<User> pages =userService.findByPage(pageInfo.getCurrentPage());
+        Integer code = pages!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = pages!=null ?"":"数据查询失败！";
+        return new Result(code,pages,msg);
+    }
+
+    @PostMapping("/info")
+    public Result search(@RequestBody PageInfo pageInfo){
+        PageInfo<User> infos = userService.search(pageInfo.getInfo(),pageInfo.getCurrentPage());
+        Integer code = infos!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = infos!=null ?"数据查询成功":"数据查询失败！";
+        return new Result(code,infos,msg);
     }
 }

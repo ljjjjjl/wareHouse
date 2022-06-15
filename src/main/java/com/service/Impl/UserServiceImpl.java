@@ -65,15 +65,6 @@ public class UserServiceImpl implements UserService {
         return userDao.UNIQUE(user)>0;
     }
 
-    @Override
-    public List<User> search(String info) {
-        if (info ==null)
-            return userDao.searchNull();
-        else
-            return userDao.search(info);
-    }
-
-
 
     @Override
     public PageInfo<User> findByPage(int currentPage) {
@@ -105,5 +96,35 @@ public class UserServiceImpl implements UserService {
         return pageInfo;
     }
 
+    @Override
+    public PageInfo<User> search(String info,int currentPage) {
+        PageInfo<User> pageInfo = new PageInfo<>();
+        pageInfo.setInfo(info);
+        //获取每页的数据量
+        pageInfo.setSize(2);
+
+        //获取总数据量
+        int totalCount = userDao.searchTotal(info);//中断
+        pageInfo.setTotalCount(totalCount);
+        //获取总页数
+        int totalPage = (int)Math.ceil(totalCount/(double)pageInfo.getSize());
+        pageInfo.setTotalPage(totalPage);
+
+        //判断当前页是否合理
+        if(currentPage<1){
+            pageInfo.setCurrentPage(1);
+        }else if(currentPage>totalPage){
+            pageInfo.setCurrentPage(totalPage);
+        }else {
+            pageInfo.setCurrentPage(currentPage);
+        }
+
+        int start = (pageInfo.getCurrentPage()-1)*pageInfo.getSize();
+        //查询当前页面下所有的用户信息
+        List<User> list = userDao.search(info,start,pageInfo.getSize());
+
+        pageInfo.setList(list);
+        return pageInfo;
+    }
 
 }

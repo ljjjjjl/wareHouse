@@ -1,13 +1,13 @@
 package com.controller.result;
 
 public class Result {
-    private Object data1;
+    private Object data;
     private Integer code;
     private String msg;
 
 
     public Result(Integer code,Object data,  String msg) {
-        this.data1 = data;
+        this.data = data;
         this.code = code;
         this.msg = msg;
     }
@@ -16,16 +16,16 @@ public class Result {
     }
 
     public Result(Integer code,Object data) {
-        this.data1 = data;
+        this.data = data;
         this.code = code;
     }
 
     public Object getData() {
-        return data1;
+        return data;
     }
 
     public void setData(Object data) {
-        this.data1 = data;
+        this.data = data;
     }
 
     public Integer getCode() {

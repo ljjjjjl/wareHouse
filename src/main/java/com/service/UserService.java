@@ -62,11 +62,6 @@ public interface UserService {
      */
     public boolean UNIQUE(User user);
 
-    /**
-     * 多条件模糊查询
-     * @return
-     */
-    public List<User> search(String info);
 
 
     /**
@@ -74,4 +69,11 @@ public interface UserService {
      * @return
      */
     public PageInfo<User> findByPage(int currentPage);
+
+    /**
+     * 多条件模糊查询
+     * @return
+     */
+    public PageInfo<User> search(String info,int currentPage);
+
 }

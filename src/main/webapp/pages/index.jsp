@@ -7,7 +7,7 @@
     <meta charset=utf-8">
     <title>主页</title>
     <script type="text/javascript"  src="${pageContext.request.contextPath}/js/index.js"></script>
-
+<%--    <script type="text/javascript"  src="${pageContext.request.contextPath}/js/user.js"></script>--%>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/boot/css/bootstrap.min.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/boot/js/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/boot/js/bootstrap.min.js"></script>
