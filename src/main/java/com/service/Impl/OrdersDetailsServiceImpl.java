@@ -2,9 +2,7 @@ package com.service.Impl;
 
 import com.dao.GoodsDetailsDao;
 import com.dao.OrdersDetailsDao;
-import com.domain.GoodsDetails;
-import com.domain.OrdersDetails;
-import com.domain.User;
+import com.domain.*;
 import com.service.OrdersDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,4 +56,33 @@ public class OrdersDetailsServiceImpl implements OrdersDetailsService {
     }
 
 
+    @Override
+    public PageInfo<OrdersDetails> findByPage(int others_id,int currentPage) {
+        PageInfo<OrdersDetails> pageInfo = new PageInfo<>();
+        //获取每页的数据量
+        pageInfo.setSize(5);
+
+        //获取总数据量
+        int totalCount = ordersDetailsDao.getTotal(others_id);//中断
+        pageInfo.setTotalCount(totalCount);
+        //获取总页数
+        int totalPage = (int)Math.ceil(totalCount/(double)pageInfo.getSize());
+        pageInfo.setTotalPage(totalPage);
+
+        //判断当前页是否合理
+        if(currentPage<1){
+            pageInfo.setCurrentPage(1);
+        }else if(currentPage>totalPage){
+            pageInfo.setCurrentPage(totalPage);
+        }else {
+            pageInfo.setCurrentPage(currentPage);
+        }
+
+        int start = (pageInfo.getCurrentPage()-1)*pageInfo.getSize();
+        //查询当前页面下所有的用户信息
+        List<OrdersDetails> list = ordersDetailsDao.findByPage(others_id,start,pageInfo.getSize());
+
+        pageInfo.setList(list);
+        return pageInfo;
+    }
 }

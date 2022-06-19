@@ -18,18 +18,18 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Override
     public boolean save(User user) {
+        if (userDao.UNIQUE(user) >=1){
+            throw new SqlException(Code.SQL_REPEATUSER_ERR,"该用户名已被占用");
+        }
+//        System.out.println(userDao.UNIQUE(user));
         return userDao.save(user)>0;
     }
-//    public boolean save(User user) {
-//        if (userDao.UNIQUE(user) >=1){
-//            throw new SqlException(Code.SQL_REPEATUSER_ERR,"该用户名已被占用");
-//        }
-//        System.out.println(userDao.UNIQUE(user));
-//        return userDao.save(user)>0;
-//    }
 
     @Override
     public boolean update(User user) {
+        if (userDao.UNIQUEUpdate(user) >=1){
+            throw new SqlException(Code.SQL_REPEATUSER_ERR,"该用户名已被占用");
+        }
         return userDao.update(user)>0;
     }
 
@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean UNIQUE(User user) {
         return userDao.UNIQUE(user)>0;
+//        return false;
     }
 
 
@@ -70,7 +71,7 @@ public class UserServiceImpl implements UserService {
     public PageInfo<User> findByPage(int currentPage) {
         PageInfo<User> pageInfo = new PageInfo<>();
         //获取每页的数据量
-        pageInfo.setSize(2);
+        pageInfo.setSize(5);
 
         //获取总数据量
         int totalCount = userDao.getTotal();//中断
@@ -101,7 +102,7 @@ public class UserServiceImpl implements UserService {
         PageInfo<User> pageInfo = new PageInfo<>();
         pageInfo.setInfo(info);
         //获取每页的数据量
-        pageInfo.setSize(2);
+        pageInfo.setSize(5);
 
         //获取总数据量
         int totalCount = userDao.searchTotal(info);//中断

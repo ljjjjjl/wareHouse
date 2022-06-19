@@ -1,6 +1,8 @@
 package com.service;
 
+import com.domain.Goods;
 import com.domain.GoodsDetails;
+import com.domain.PageInfo;
 import com.domain.User;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,12 +37,30 @@ public interface GoodsDetailsService {
      * @return
      */
     public List<GoodsDetails> find(GoodsDetails goodsDetails);
-//
-//    /**
-//     * 查询全部相同goods_id
-//     * @return
-//     */
+
+    /**
+     * 查询全部相同goods_id的记录
+     * @return
+     */
 //    public List<GoodsDetails> getAll();
 
     public List<GoodsDetails> getAll(Integer goods_id);
+
+    public List<GoodsDetails> getAllGoodsdetail();
+
+    public boolean UNIQUE(GoodsDetails goodsDetails);
+
+    public GoodsDetails getbyid(Integer id);
+
+    /**
+     * 获得列表页面的分页信息
+     * @return
+     */
+    public PageInfo<GoodsDetails> findByPage(int others_id,int currentPage);
+
+    /**
+     * 查询所有
+     * @return
+     */
+    public PageInfo<GoodsDetails> search(int currentPage);
 }

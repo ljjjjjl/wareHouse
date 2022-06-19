@@ -47,7 +47,8 @@ public interface GoodsDao {
     @Select("SELECT COUNT(id) FROM goods WHERE goods_id=#{goods_id} and goods_status=0")
     int UNIQUE(Goods goods);
 
-
+    @Select("SELECT COUNT(id) FROM goods WHERE goods_id=#{goods_id} and goods_status=0 and id!=#{id}")
+    int UNIQUEUpdate(Goods goods);
 
     @Select("select count(*) from goods where goods_status =0")
     int getTotal();
@@ -60,7 +61,8 @@ public interface GoodsDao {
     int searchTotal(String keyword);
     @Select("select * from goods where goods_status =0 and " +
             "(goods_name like concat('%',#{keyword},'%') " +
-            "or goods_id like concat('%',#{keyword},'%') or id like concat('%',#{keyword},'%'))")
+            "or goods_id like concat('%',#{keyword},'%') or id like concat('%',#{keyword},'%'))" +
+            "limit #{start},#{size}")
     List<Goods> search(@Param("keyword")String keyword,@Param("start") int start,@Param("size") int size);
 
 }

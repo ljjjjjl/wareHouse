@@ -1,8 +1,11 @@
 package com.service.Impl;
 
+import com.controller.result.Code;
 import com.dao.WarehouseDetailsDao;
 import com.domain.WarehouseDetails;
+import com.exception.SqlException;
 import com.service.WarehouseDetailsService;
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +26,13 @@ public class WarehouseDetailsServiceImpl implements WarehouseDetailsService {
     }
     @Override
     public int uniqueId(WarehouseDetails warehouseDetails) {
-        return warehouseDetailsDao.uniqueId(warehouseDetails);
+        int id;
+        try{
+            id = warehouseDetailsDao.uniqueId(warehouseDetails);
+        }catch (BindingException e){
+            throw new SqlException(Code.SQL_LESSTHANZERO_ERR,"该仓库无此货品");
+        }
+        return id;
     }
 
     @Override

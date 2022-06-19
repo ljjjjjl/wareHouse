@@ -1,10 +1,12 @@
 package com.service.Impl;
 
+import com.controller.result.Code;
 import com.dao.GoodsDao;
 
 import com.domain.Goods;
 import com.domain.PageInfo;
 import com.domain.User;
+import com.exception.SqlException;
 import com.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,19 +46,19 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Goods getById(Integer id) {
-        return null;
+        return goodsDao.getById(id);
     }
 
     @Override
     public boolean UNIQUE(Goods goods) {
-        return false;
+        return goodsDao.UNIQUEUpdate(goods)>0;
     }
 
     @Override
     public PageInfo<Goods> findByPage(int currentPage) {
         PageInfo<Goods> pageInfo = new PageInfo<>();
         //获取每页的数据量
-        pageInfo.setSize(2);
+        pageInfo.setSize(5);
 
         //获取总数据量
         int totalCount = goodsDao.getTotal();//中断
@@ -87,7 +89,7 @@ public class GoodsServiceImpl implements GoodsService {
         PageInfo<Goods> pageInfo = new PageInfo<>();
         pageInfo.setInfo(info);
         //获取每页的数据量
-        pageInfo.setSize(2);
+        pageInfo.setSize(5);
 
         //获取总数据量
         int totalCount = goodsDao.searchTotal(info);//中断

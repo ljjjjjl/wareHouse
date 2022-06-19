@@ -1,11 +1,9 @@
 package com.dao;
 
 import com.domain.Goods;
+import com.domain.GoodsDetails;
 import com.domain.Orders;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -51,4 +49,14 @@ public interface OrdersDao {
 
     @Select("select *from orders where orders_type ='出库' and orders_status =0")
     public List<Orders> getAllOut();
+
+    @Select("select count(*) from orders where orders_type ='入库' and orders_status =0")
+    int getTotalIn();
+    @Select("select * from orders where orders_type ='入库' and orders_status =0 limit #{start},#{size}")
+    List<Orders> findByPageIn(@Param("start") int start, @Param("size") int size);
+
+    @Select("select count(*) from orders where orders_type ='出库' and orders_status =0")
+    int getTotalOut();
+    @Select("select * from orders where orders_type ='出库' and orders_status =0 limit #{start},#{size}")
+    List<Orders> findByPageOut(@Param("start") int start, @Param("size") int size);
 }

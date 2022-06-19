@@ -33,7 +33,8 @@ public interface UserDao {
     @Select("SELECT COUNT(id) FROM user WHERE user_id =#{user_id}")
     int UNIQUE(User user);
 
-
+    @Select("SELECT COUNT(id) FROM user WHERE user_id =#{user_id} and id!=#{id}")
+    int UNIQUEUpdate(User user);
 
 
 

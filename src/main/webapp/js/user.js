@@ -16,7 +16,7 @@ function SelectUserlist(){
             if(obj.code === 20041){
                 // $("#userlists").empty();
                 var p=obj.data;
-                pageView(p);
+                userPageView(p);
             }else {
                 alert(obj.msg);
             }
@@ -43,7 +43,7 @@ function SelectUserlistByPage(page){
             if(obj.code === 20041){
                 // $("#userlists").empty();
                 var p=obj.data;
-                pageView(p);
+                userPageView(p);
             }else {
                 alert(obj.msg);
             }
@@ -54,24 +54,27 @@ function SelectUserlistByPage(page){
     });
 }
 //页码显示
-function pageView(p){
-    $("#currentPage").empty()
-    console.log(p.currentPage)
+function userPageView(p){
+    $("#userPage").empty()
+    // console.log(123)
+    // console.log(p.currentPage)
 
-    $("#currentPage").append("<li> <a onclick='SelectUserlistByPage("+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
+
+    $("#userPage").append("<li> <a onclick='SelectUserlistByPage("+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
     for (let i = 1; i <= p.totalPage; i++){
+
         if (p.currentPage ===i)
-            $("#currentPage").append("<li class='active'><a onclick='SelectUserlistByPage("+i+")'>" + i +"</a><li/>");
+            $("#userPage").append("<li class='active'><a onclick='SelectUserlistByPage("+i+")'>" + i +"</a><li/>");
         else
-            $("#currentPage").append("<li ><a onclick='SelectUserlistByPage("+i+")'>" + i +"</a><li/>");
+            $("#userPage").append("<li ><a onclick='SelectUserlistByPage("+i+")'>" + i +"</a><li/>");
     }
-    $("#currentPage").append("<li> <a onclick='SelectUserlistByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
+    $("#userPage").append("<li> <a onclick='SelectUserlistByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
     userView(p.list)
 }
 // 用户列表显示
 function userView(list){
-    $("#userlists").html("<tr><th>编号</th><th>账户名</th><th>用户名</th><th>操作</th></tr>");
+    $("#userlists").empty();
     for( i in list) {
         $("#userlists").append("<tr>"+"<td>" + list[i].id +
             "</td><td>" + list[i].user_id +
@@ -220,7 +223,7 @@ function userSearch(){
                 if(obj.code === 20041){
                     // $("#userlists").empty();
                     var p=obj.data;
-                    infoPageView(p);
+                    infoUserPageView(p);
                 }else {
                     alert(obj.msg);
                 }
@@ -257,7 +260,7 @@ function userSearchByPage(page){
                 if(obj.code === 20041){
                     // $("#userlists").empty();
                     var p=obj.data;
-                    infoPageView(p);
+                    infoUserPageView(p);
                 }else {
                     alert(obj.msg);
                 }
@@ -270,18 +273,18 @@ function userSearchByPage(page){
 
 }
 //页码显示(用户查询)
-function infoPageView(p){
-    $("#currentPage").empty()
+function infoUserPageView(p){
+    $("#userPage").empty()
     console.log(p.currentPage)
 
-    $("#currentPage").append("<li> <a onclick='userSearchByPage("+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
+    $("#userPage").append("<li> <a onclick='userSearchByPage("+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
     for (let i = 1; i <= p.totalPage; i++){
         if (p.currentPage ===i)
-            $("#currentPage").append("<li class='active'><a onclick='userSearchByPage("+i+")'>" + i +"</a><li/>");
+            $("#userPage").append("<li class='active'><a onclick='userSearchByPage("+i+")'>" + i +"</a><li/>");
         else
-            $("#currentPage").append("<li ><a onclick='userSearchByPage("+i+")'>" + i +"</a><li/>");
+            $("#userPage").append("<li ><a onclick='userSearchByPage("+i+")'>" + i +"</a><li/>");
     }
-    $("#currentPage").append("<li> <a onclick='userSearchByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
+    $("#userPage").append("<li> <a onclick='userSearchByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
     userView(p.list)
 }

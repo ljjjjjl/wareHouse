@@ -19,28 +19,13 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    HttpServletRequest request;   //首先可以通过注解的方式  获取一个 request
+    HttpServletRequest request;
 
 
     @PostMapping
     public Result save(@RequestBody User user) {
-        boolean flag =userService.UNIQUE(user);
-        String msg = "";
-        int code = Code.SYSTEM_UNKNOW_ERR;
-        if (flag){
-            msg = "账户名已被占用，请重试";
-            code = Code.SAVE_ERR;
-        }else {
-            boolean judge = userService.save(user);
-            if (!judge){
-                msg = "新增用户失败";
-                code = Code.SAVE_ERR;
-            }else {
-                msg = "新增用户成功";
-                code = Code.SAVE_OK;
-            }
-        }
-        return new Result(code,flag,msg);
+        boolean flag =userService.save(user);
+        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag,flag ? "新增用户成功":"新增用户失败");
     }
 
     @PutMapping

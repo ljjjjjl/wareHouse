@@ -1,6 +1,8 @@
 package com.service;
 
+import com.domain.GoodsDetails;
 import com.domain.OrdersDetails;
+import com.domain.PageInfo;
 import com.domain.User;
 
 import java.util.List;
@@ -62,5 +64,10 @@ public interface OrdersDetailsService {
      */
     public OrdersDetails getById(Integer id);
 
+    /**
+     * 获得列表页面的分页信息
+     * @return
+     */
+    public PageInfo<OrdersDetails> findByPage(int others_id, int currentPage);
 
 }

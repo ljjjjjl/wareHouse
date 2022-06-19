@@ -7,7 +7,10 @@
     <meta charset=utf-8">
     <title>主页</title>
     <script type="text/javascript"  src="${pageContext.request.contextPath}/js/index.js"></script>
-<%--    <script type="text/javascript"  src="${pageContext.request.contextPath}/js/user.js"></script>--%>
+    <script type="text/javascript"  src="${pageContext.request.contextPath}/js/user.js"></script>
+    <script type="text/javascript"  src="${pageContext.request.contextPath}/js/goods.js"></script>
+    <script type="text/javascript"  src="${pageContext.request.contextPath}/js/warehouse.js"></script>
+    <script type="text/javascript"  src="${pageContext.request.contextPath}/js/stock.js"></script>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/boot/css/bootstrap.min.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/boot/js/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/boot/js/bootstrap.min.js"></script>
@@ -27,7 +30,7 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a>欢迎: <span class="text-danger text-center" id="usernameshow">${loginUser.user_name}</span></a></li>
+                <li><a>欢迎: <span class="text-danger text-center" id="usernameshow" ></span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户中心 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -46,7 +49,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="Systemheading">
                     <h4 class="panel-title">
-                        <a onclick="System()" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#Systemcollapse" aria-expanded="true" aria-controls="Systemcollapse">
+                        <a onclick="System()" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#Systemcollapse" aria-expanded="false" aria-controls="Systemcollapse">
                             <span class="glyphicon glyphicon-tasks"></span>系统管理
                         </a>
                     </h4>
@@ -81,23 +84,23 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="Permissionheading">
-                    <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#permissioncollapse" aria-expanded="false" aria-controls="permissioncollapse">
-                            <span class="glyphicon glyphicon-blackboard"></span>权限管理
-                        </a>
-                    </h4>
-                </div>
-                <div id="permissioncollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="permissionheading">
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            <li class="list-group-item"><a>权限查询</a></li>
-                            <li class="list-group-item"><a>权限管理</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <%--            <div class="panel panel-default">--%>
+            <%--                <div class="panel-heading" role="tab" id="Permissionheading">--%>
+            <%--                    <h4 class="panel-title">--%>
+            <%--                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#permissioncollapse" aria-expanded="false" aria-controls="permissioncollapse">--%>
+            <%--                            <span class="glyphicon glyphicon-blackboard"></span>权限管理--%>
+            <%--                        </a>--%>
+            <%--                    </h4>--%>
+            <%--                </div>--%>
+            <%--                <div id="permissioncollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="permissionheading">--%>
+            <%--                    <div class="panel-body">--%>
+            <%--                        <ul class="list-group">--%>
+            <%--                            <li class="list-group-item"><a>权限查询</a></li>--%>
+            <%--                            <li class="list-group-item"><a>权限管理</a></li>--%>
+            <%--                        </ul>--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+            <%--            </div>--%>
         </div>
     </div>
     <div id="content">

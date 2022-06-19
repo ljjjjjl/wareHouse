@@ -2,10 +2,7 @@ package com.dao;
 
 import com.domain.GoodsDetails;
 import com.domain.OrdersDetails;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -15,8 +12,9 @@ public interface OrdersDetailsDao {
     @Select("select *from orders_details where status =0 and orders_id =#{orders_id}")
     public List<OrdersDetails> getAll(Integer orders_id);
 
-    @Select("select warehouse_id from orders o,orders_details od " +
-            "where o.id =od.orders_id and o.id =#{orders_id} group by warehouse_id")
+//    @Select("select warehouse_id from orders o,orders_details od " +
+//            "where o.id =od.orders_id and o.id =#{orders_id} group by warehouse_id")
+    @Select("select warehouse_id from orders where id =#{orders_id} ")
     public int getWarehouseId(OrdersDetails ordersDetails);
 
 
@@ -51,4 +49,9 @@ public interface OrdersDetailsDao {
 
     @Select("select * from orders_details where id =#{id}")
     public OrdersDetails getById(Integer id);
+
+    @Select("select count(*) from orders_details where orders_id =#{orders_id} and status =0")
+    int getTotal(int orders_id);
+    @Select("select * from orders_details where orders_id =#{orders_id} and status =0 limit #{start},#{size}")
+    List<OrdersDetails> findByPage(@Param("orders_id")int goods_id, @Param("start") int start, @Param("size") int size);
 }

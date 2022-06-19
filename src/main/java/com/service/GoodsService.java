@@ -48,7 +48,7 @@ public interface GoodsService {
     public boolean UNIQUE(Goods goods);
 
     /**
-     * 获得用户列表页面的分页信息
+     * 获得列表页面的分页信息
      * @return
      */
     public PageInfo<Goods> findByPage(int currentPage);

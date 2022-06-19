@@ -2,6 +2,7 @@ package com.service;
 
 import com.domain.Goods;
 import com.domain.Orders;
+import com.domain.PageInfo;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -55,4 +56,16 @@ public interface OrdersService {
      * @return
      */
     public List<Orders> getAllOut();
+
+    /**
+     * 获得列表页面的分页信息
+     * @return
+     */
+    public PageInfo<Orders> findByPageIn(int currentPage);
+
+    /**
+     * 获得列表页面的分页信息
+     * @return
+     */
+    public PageInfo<Orders> findByPageOut(int currentPage);
 }

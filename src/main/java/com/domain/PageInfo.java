@@ -8,7 +8,9 @@ public class PageInfo<T> {
     private int totalCount;
     private int size;
     private int currentPage;
+
     private String info;
+    private int others_id;
 
 
 
@@ -81,6 +83,14 @@ public class PageInfo<T> {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public int getOthers_id() {
+        return others_id;
+    }
+
+    public void setOthers_id(int others_id) {
+        this.others_id = others_id;
     }
 }
 

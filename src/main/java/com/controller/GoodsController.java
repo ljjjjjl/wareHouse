@@ -19,6 +19,7 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
 
+    @PostMapping
     public Result save(@RequestBody Goods goods) {
         boolean flag =goodsService.UNIQUE(goods);
         String msg = "";
