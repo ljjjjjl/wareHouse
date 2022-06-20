@@ -32,6 +32,7 @@ D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\dao\WarehouseDe
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\service\Impl\OrdersDetailsServiceImpl.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\controller\GoodsController.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\controller\result\Result.java
+D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\controller\result\RandomString.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\service\OrdersDetailsService.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\controller\OrdersDetailsController.java
 D:\桌面\ccsu\Java\实训\workplace\warehouse\src\main\java\com\domain\Orders.java

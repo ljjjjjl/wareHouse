@@ -83,6 +83,7 @@ public class OrdersDetailsServiceImpl implements OrdersDetailsService {
         List<OrdersDetails> list = ordersDetailsDao.findByPage(others_id,start,pageInfo.getSize());
 
         pageInfo.setList(list);
+        pageInfo.setOthers_id(others_id);
         return pageInfo;
     }
 }

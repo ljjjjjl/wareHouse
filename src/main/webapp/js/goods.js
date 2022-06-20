@@ -67,18 +67,22 @@ function goodsPageView(p){
     }
     $("#goodsPage").append("<li> <a onclick='SelectGoodslistByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
-    goodsView(p.list)
+    goodsView(p)
 }
 // 货号列表显示
-function goodsView(list){
+function goodsView(p){
     $("#goodslists").empty();
     // $("#goodslists").html("");
-    for( i in list) {
-        $("#goodslists").append("<tr><td>" + list[i].id +
-            "</td><td><a onclick='togoodsdetail("+list[i].id+")'>"+ list[i].goods_id +"</a>"+
-            "</td><td>" + list[i].goods_name +
-            "</td><td>" + "<a onclick='goodsDelete("+list[i].id+")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
-            "<a onclick='goodsEditModel("+list[i].id+")' data-toggle='modal' data-target='#updateGoodsModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
+    for( i in p.list) {
+        $("#goodslists").append("" +
+            "<tr>" +
+            // "<td>" + p.list[i].id +
+            // "</td>" +
+            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
+            "</td><td><a onclick='togoodsdetail("+p.list[i].id+")'>"+ p.list[i].goods_id +"</a>"+
+            "</td><td>" + p.list[i].goods_name +
+            "</td><td>" + "<a onclick='goodsDelete("+p.list[i].id+")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
+            "<a onclick='goodsEditModel("+p.list[i].id+")' data-toggle='modal' data-target='#updateGoodsModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
             "</td>"+"<tr>")
     }
 }
@@ -407,12 +411,16 @@ function goodsDetailsPageView(p,goods_id){
     }
     $("#goodsDetailsPage").append("<li> <a onclick='SelectGoodsDetailByPage("+goods_id+","+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
-    goodsdetailView(p.list)
+    goodsdetailView(p)
 }
-function goodsdetailView(list){
+function goodsdetailView(p){
     $("#goodsdetaillists").empty();
-    $.each(list,function (i,goods){
-        $("#goodsdetaillists").append("<tr><td>" + goods.id +
+    $.each(p.list,function (i,goods){
+        $("#goodsdetaillists").append("" +
+            "<tr>" +
+            // "<td>" + goods.id +
+            // "</td" +
+            "><td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
             "</td><td>" + goods.goods_color +
             "</td><td>" + goods.goods_size +
             "</td><td>" + "<a onclick='goodsdetailDelete(" + goods.id + ")'>" +

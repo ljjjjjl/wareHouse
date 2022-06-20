@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-//表示异常处理器
+//表示异常处理  器
 public class ProjectExceptionAdvice {
 
     @ExceptionHandler(SqlException.class)

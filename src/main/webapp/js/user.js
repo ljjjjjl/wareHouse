@@ -70,17 +70,23 @@ function userPageView(p){
     }
     $("#userPage").append("<li> <a onclick='SelectUserlistByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
-    userView(p.list)
+    userView(p)
 }
 // 用户列表显示
-function userView(list){
+function userView(p){
     $("#userlists").empty();
-    for( i in list) {
-        $("#userlists").append("<tr>"+"<td>" + list[i].id +
-            "</td><td>" + list[i].user_id +
-            "</td><td>" + list[i].user_name +
-            "</td><td>" + "<a onclick='userDelete("+list[i].id+")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
-            "<a onclick='userEditModel("+list[i].id+")' data-toggle='modal' data-target='#updateUserModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
+    console.log(p.size*p.currentPage )
+    for( i in p.list) {
+        $("#userlists").append("" +
+
+            "<tr>"+
+            // "<td>" + p.list[i].id +
+            // "</td>" +
+            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
+            "</td><td>" + p.list[i].user_id +
+            "</td><td>" + p.list[i].user_name +
+            "</td><td>" + "<a onclick='userDelete("+p.list[i].id+")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
+            "<a onclick='userEditModel("+p.list[i].id+")' data-toggle='modal' data-target='#updateUserModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
             "</td>"+"<tr>")
     }
 }
@@ -286,5 +292,5 @@ function infoUserPageView(p){
     }
     $("#userPage").append("<li> <a onclick='userSearchByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
-    userView(p.list)
+    userView(p)
 }

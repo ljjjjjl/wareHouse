@@ -6,6 +6,10 @@ public class WarehouseDetails {
     private int goods_details_id;
     private int warehouse_id;
 
+    private String goods_name;
+    private String goods_color;
+    private String goods_size;
+
     @Override
     public String toString() {
         return "WarehouseDetails{" +
@@ -13,6 +17,9 @@ public class WarehouseDetails {
                 ", num=" + num +
                 ", goods_details_id=" + goods_details_id +
                 ", warehouse_id=" + warehouse_id +
+                ", goods_name='" + goods_name + '\'' +
+                ", goods_color='" + goods_color + '\'' +
+                ", goods_size='" + goods_size + '\'' +
                 '}';
     }
 
@@ -46,5 +53,29 @@ public class WarehouseDetails {
 
     public void setWarehouse_id(int warehouse_id) {
         this.warehouse_id = warehouse_id;
+    }
+
+    public String getGoods_name() {
+        return goods_name;
+    }
+
+    public void setGoods_name(String goods_name) {
+        this.goods_name = goods_name;
+    }
+
+    public String getGoods_color() {
+        return goods_color;
+    }
+
+    public void setGoods_color(String goods_color) {
+        this.goods_color = goods_color;
+    }
+
+    public String getGoods_size() {
+        return goods_size;
+    }
+
+    public void setGoods_size(String goods_size) {
+        this.goods_size = goods_size;
     }
 }

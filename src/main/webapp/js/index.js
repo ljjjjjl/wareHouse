@@ -1,7 +1,20 @@
+var maxTime = 600;
+var time = maxTime;
+function timereset(){
+    time = maxTime;
+}
+var intervalId = setInterval(function(){
+    time--;
+    if(time <= 0) {
+        Logout();
+        clearInterval(intervalId);
+    }
+}, 1000)
+
+
 function System(){
     $("#content").load("../pages/system.jsp");
 }
-
 function Stock(){
     $("#content").load("../pages/stock.jsp")
 }

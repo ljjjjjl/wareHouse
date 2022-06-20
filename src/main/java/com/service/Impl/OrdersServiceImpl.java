@@ -1,10 +1,13 @@
 package com.service.Impl;
 
+import com.controller.result.Code;
+import com.controller.result.RandomString;
 import com.dao.OrdersDao;
 import com.domain.Goods;
 import com.domain.Orders;
 import com.domain.PageInfo;
 import com.domain.User;
+import com.exception.SqlException;
 import com.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +19,20 @@ import java.util.List;
 public class OrdersServiceImpl implements OrdersService {
     @Autowired
     OrdersDao ordersDao;
+    RandomString randomString;
 
     @Override
     public boolean save(Orders orders) {
-        return ordersDao.save(orders)>0;
+        int flag =ordersDao.save(orders);
+        if (flag>0){
+            orders.setId(ordersDao.maxId());
+            //生成随机数
+            orders.setOrders_id(randomString.getRandomString(5)+orders.getId());
+            flag =ordersDao.update(orders);
+        }else {
+            throw new SqlException(Code.SQL_ADDGOODS_ERR,"新添货单失败");
+        }
+        return flag>0;
     }
 
     @Override

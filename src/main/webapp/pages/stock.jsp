@@ -45,21 +45,21 @@
                 <div style="margin-left: 400px">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" id="orderoutPage">
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Previous">--%>
-<%--                                    <span aria-hidden="true">&laquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="active"><a href="#">1</a></li>--%>
-<%--                            <li><a href="#">2</a></li>--%>
-<%--                            <li><a href="#">3</a></li>--%>
-<%--                            <li><a href="#">4</a></li>--%>
-<%--                            <li><a href="#">5</a></li>--%>
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Next">--%>
-<%--                                    <span aria-hidden="true">&raquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Previous">--%>
+                            <%--                                    <span aria-hidden="true">&laquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li class="active"><a href="#">1</a></li>--%>
+                            <%--                            <li><a href="#">2</a></li>--%>
+                            <%--                            <li><a href="#">3</a></li>--%>
+                            <%--                            <li><a href="#">4</a></li>--%>
+                            <%--                            <li><a href="#">5</a></li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Next">--%>
+                            <%--                                    <span aria-hidden="true">&raquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
                     </nav>
                 </div>
             </div>
@@ -91,21 +91,21 @@
                 <div style="margin-left: 400px">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" id="orderinPage">
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Previous">--%>
-<%--                                    <span aria-hidden="true">&laquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="active"><a href="#">1</a></li>--%>
-<%--                            <li><a href="#">2</a></li>--%>
-<%--                            <li><a href="#">3</a></li>--%>
-<%--                            <li><a href="#">4</a></li>--%>
-<%--                            <li><a href="#">5</a></li>--%>
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Next">--%>
-<%--                                    <span aria-hidden="true">&raquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Previous">--%>
+                            <%--                                    <span aria-hidden="true">&laquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li class="active"><a href="#">1</a></li>--%>
+                            <%--                            <li><a href="#">2</a></li>--%>
+                            <%--                            <li><a href="#">3</a></li>--%>
+                            <%--                            <li><a href="#">4</a></li>--%>
+                            <%--                            <li><a href="#">5</a></li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Next">--%>
+                            <%--                                    <span aria-hidden="true">&raquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
                         </ul>
                     </nav>
                 </div>
@@ -115,8 +115,7 @@
                     <button class="btn btn-success btn-sm" onclick="SelectOrderidoutadd()">增加出库明细信息</button>
                 </a>
                 <a style="margin-left: 560px;">
-                    <label for="queryorderoutdetail"></label><input id="queryorderoutdetail" type="search" placeholder="请输入查询信息" style="height: 29px"/>
-                    <button class="btn btn-info btn-sm">查询</button>
+                    <button class="btn btn-info btn-sm" onclick="SelectOrderOutDetail(null)">显示全部</button>
                 </a>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
@@ -135,21 +134,21 @@
                 <div style="margin-left: 400px">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" id="orderoutdetailPage">
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Previous">--%>
-<%--                                    <span aria-hidden="true">&laquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="active"><a href="#">1</a></li>--%>
-<%--                            <li><a href="#">2</a></li>--%>
-<%--                            <li><a href="#">3</a></li>--%>
-<%--                            <li><a href="#">4</a></li>--%>
-<%--                            <li><a href="#">5</a></li>--%>
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Next">--%>
-<%--                                    <span aria-hidden="true">&raquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Previous">--%>
+                            <%--                                    <span aria-hidden="true">&laquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li class="active"><a href="#">1</a></li>--%>
+                            <%--                            <li><a href="#">2</a></li>--%>
+                            <%--                            <li><a href="#">3</a></li>--%>
+                            <%--                            <li><a href="#">4</a></li>--%>
+                            <%--                            <li><a href="#">5</a></li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Next">--%>
+                            <%--                                    <span aria-hidden="true">&raquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
                         </ul>
                     </nav>
                 </div>
@@ -159,8 +158,7 @@
                     <button class="btn btn-success btn-sm" onclick="SelectOrderidinadd()">增加入库明细信息</button>
                 </a>
                 <a style="margin-left: 560px;">
-                    <label for="queryorderindetail"></label><input id="queryorderindetail" type="search" placeholder="请输入查询信息" style="height: 29px"/>
-                    <button class="btn btn-info btn-sm">查询</button>
+                    <button class="btn btn-info btn-sm" onclick="SelectOrderInDetail(null)">显示全部</button>
                 </a>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
@@ -179,21 +177,21 @@
                 <div style="margin-left: 400px">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" id="orderindetailPage">
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Previous">--%>
-<%--                                    <span aria-hidden="true">&laquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="active"><a href="#">1</a></li>--%>
-<%--                            <li><a href="#">2</a></li>--%>
-<%--                            <li><a href="#">3</a></li>--%>
-<%--                            <li><a href="#">4</a></li>--%>
-<%--                            <li><a href="#">5</a></li>--%>
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Next">--%>
-<%--                                    <span aria-hidden="true">&raquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Previous">--%>
+                            <%--                                    <span aria-hidden="true">&laquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li class="active"><a href="#">1</a></li>--%>
+                            <%--                            <li><a href="#">2</a></li>--%>
+                            <%--                            <li><a href="#">3</a></li>--%>
+                            <%--                            <li><a href="#">4</a></li>--%>
+                            <%--                            <li><a href="#">5</a></li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Next">--%>
+                            <%--                                    <span aria-hidden="true">&raquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
                         </ul>
                     </nav>
                 </div>
@@ -213,10 +211,10 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="Orderoutidadd">新增单据编号</label>
-                        <input type="text" class="form-control" id="Orderoutidadd" placeholder="单据编号">
-                    </div>
+                    <%--                    <div class="form-group">--%>
+                    <%--                        <label for="Orderoutidadd">新增单据编号</label>--%>
+                    <%--                        <input type="text" class="form-control" id="Orderoutidadd" placeholder="单据编号">--%>
+                    <%--                    </div>--%>
                     <div class="form-group">
                         <label for="Orderoutaddressadd">新增地址</label>
                         <input type="text" class="form-control" id="Orderoutaddressadd" placeholder="地址">
@@ -250,10 +248,10 @@
             <div class="modal-body">
                 <form>
                     <input type="hidden" class="form-control" name="updateordersid" id="updateordersid">
-                    <div class="form-group">
-                        <label for="Orderoutidupdate">修改单据编号</label>
-                        <input type="text" class="form-control" id="Orderoutidupdate" placeholder="单据编号">
-                    </div>
+                    <%--                    <div class="form-group">--%>
+                    <%--                        <label for="Orderoutidupdate">修改单据编号</label>--%>
+                    <%--                        <input type="text" class="form-control" id="Orderoutidupdate" placeholder="单据编号">--%>
+                    <%--                    </div>--%>
                     <div class="form-group">
                         <label for="Orderoutaddressupdate">修改地址</label>
                         <input type="text" class="form-control" id="Orderoutaddressupdate" placeholder="地址">
@@ -286,10 +284,10 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="Orderinidadd">新增单据编号</label>
-                        <input type="text" class="form-control" id="Orderinidadd" placeholder="单据编号">
-                    </div>
+                    <%--                    <div class="form-group">--%>
+                    <%--                        <label for="Orderinidadd">新增单据编号</label>--%>
+                    <%--                        <input type="text" class="form-control" id="Orderinidadd" placeholder="单据编号">--%>
+                    <%--                    </div>--%>
                     <div class="form-group">
                         <label for="Orderinaddressadd">新增地址</label>
                         <input type="text" class="form-control" id="Orderinaddressadd" placeholder="地址">
@@ -323,10 +321,10 @@
             <div class="modal-body">
                 <form>
                     <input type="hidden" class="form-control" name="updateordersidin" id="updateordersidin">
-                    <div class="form-group">
-                        <label for="Orderinidupdate">修改单据编号</label>
-                        <input type="text" class="form-control" id="Orderinidupdate" placeholder="单据编号">
-                    </div>
+                    <%--                    <div class="form-group">--%>
+                    <%--                        <label for="Orderinidupdate">修改单据编号</label>--%>
+                    <%--                        <input type="text" class="form-control" id="Orderinidupdate" placeholder="单据编号">--%>
+                    <%--                    </div>--%>
                     <div class="form-group">
                         <label for="Orderinaddressupdate">修改地址</label>
                         <input type="text" class="form-control" id="Orderinaddressupdate" placeholder="地址">
@@ -405,11 +403,11 @@
                     <%--                        </select>--%>
                     <%--                    </div>--%>
                     <div class="form-group">
-                        <label for="Orderoutdacountupdate">新增货物数量</label>
+                        <label for="Orderoutdacountupdate">修改货物数量</label>
                         <input type="text" class="form-control" id="Orderoutdacountupdate" placeholder="货物数量">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消新增</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消修改</button>
                         <button type="button" class="btn btn-primary" onclick="orderoutdetailEdit()">确认修改</button>
                     </div>
                 </form>
@@ -463,12 +461,13 @@
                     <input type="hidden" class="form-control" name="updateordersdidin" id="updateordersdidin">
                     <input type="hidden" class="form-control" name="updateorderdidin" id="updateorderdidin">
                     <div class="form-group">
-                        <label for="Orderindacountupdate">新增货物数量</label>
+                        <label for="Orderindacountupdate">修改货物数量</label>
                         <input type="text" class="form-control" id="Orderindacountupdate" placeholder="货物数量">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消新增</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消修改</button>
                         <button type="button" class="btn btn-primary" onclick="orderindetailEdit()">确认修改</button>
+                    </div>
                 </form>
             </div>
         </div>

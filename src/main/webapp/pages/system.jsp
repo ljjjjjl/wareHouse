@@ -14,6 +14,7 @@
             <li role="presentation" ><a href="#userlist" aria-controls="user" role="tab" data-toggle="tab" id="user" onclick="SelectUserlist()">用户列表</a></li>
             <li role="presentation"><a href="#goodslist" aria-controls="goods" role="tab" data-toggle="tab" id="goods" onclick="SelectGoodslist()">货号列表</a></li>
             <li role="presentation" style="display: none" ><a href="#goodsdetaillist" aria-controls="goodsdetail" role="tab" data-toggle="tab" id="goodsdetail">货品明细列表</a></li>
+            <li role="presentation" style="display: none" ><a href="#warehousedetaillist" aria-controls="warehousedetail" role="tab" data-toggle="tab" id="warehousedetail">货品明细列表</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -21,44 +22,29 @@
                 <a data-toggle="modal" data-target="#saveRepositoryModel">
                     <button class="btn btn-success btn-sm" id="saveRepository">增加仓库信息</button>
                 </a>
-                <a style="margin-left: 560px;">
-                    <label for="repositoryquery"></label><input id="repositoryquery" type="search" placeholder="请输入查询信息" style="height: 29px"/>
-                    <button class="btn btn-info btn-sm">查询</button>
-                </a>
+                <%--                    <a style="margin-left: 560px;">--%>
+                <%--                        <label for="repositoryquery"></label><input id="repositoryquery" type="search" placeholder="请输入查询信息" style="height: 29px"/>--%>
+                <%--                        <button class="btn btn-info btn-sm">查询</button>--%>
+                <%--                    </a>--%>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
                         <th>编号</th>
                         <th>仓库编号</th>
                         <th>仓库名</th>
-                        <th>操作</th>
+                        <%--                            <th>操作</th>--%>
                     </tr>
                     </thead>
                     <tbody id="repositorylists">
 
                     </tbody>
                 </table>
-<%--                <div style="margin-left: 400px">--%>
-<%--                    <nav aria-label="Page navigation">--%>
-<%--                        <ul class="pagination">--%>
-<%--                            <li class="disabled">--%>
-<%--                                <a href="#" aria-label="Previous">--%>
-<%--                                    <span aria-hidden="true">&laquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="active"><a href="#">1</a></li>--%>
-<%--                            <li><a href="#">2</a></li>--%>
-<%--                            <li><a href="#">3</a></li>--%>
-<%--                            <li><a href="#">4</a></li>--%>
-<%--                            <li><a href="#">5</a></li>--%>
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Next">--%>
-<%--                                    <span aria-hidden="true">&raquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                        </ul>--%>
-<%--                    </nav>--%>
-<%--                </div>--%>
+                <div style="margin-left: 400px">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination" id="warehousePage">
+                        </ul>
+                    </nav>
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="userlist">
                 <a data-toggle="modal" data-target="#saveUserModel">
@@ -68,7 +54,7 @@
                     <label for="userquery"></label><input id="userquery" type="search" placeholder="请输入查询信息" style="height: 29px"/>
                     <button class="btn btn-info btn-sm" onclick="userSearch()">查询</button>
                 </a>
-                <table class="table table-bordered table-striped table-hover" >
+                <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr><th>编号</th><th>账户名</th><th>用户名</th><th>操作</th></tr>
                     </thead>
@@ -79,21 +65,6 @@
                 <div style="margin-left: 400px">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" id="userPage">
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Previous">--%>
-<%--                                    <span aria-hidden="true">&laquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="active" ><a href="#">1</a></li>--%>
-<%--                            <li><a href="#">2</a></li>--%>
-<%--                            <li><a href="#">3</a></li>--%>
-<%--                            <li><a href="#">4</a></li>--%>
-<%--                            <li><a href="#">5</a></li>--%>
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Next">--%>
-<%--                                    <span aria-hidden="true">&raquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
                         </ul>
                     </nav>
                 </div>
@@ -117,21 +88,6 @@
                 <div style="margin-left: 400px">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" id="goodsPage">
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Previous">--%>
-<%--                                    <span aria-hidden="true">&laquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="active"><a href="#">1</a></li>--%>
-<%--                            <li><a href="#">2</a></li>--%>
-<%--                            <li><a href="#">3</a></li>--%>
-<%--                            <li><a href="#">4</a></li>--%>
-<%--                            <li><a href="#">5</a></li>--%>
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Next">--%>
-<%--                                    <span aria-hidden="true">&raquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
                         </ul>
                     </nav>
                 </div>
@@ -154,6 +110,40 @@
                 <div style="margin-left: 400px">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" id="goodsDetailsPage">
+<%--                            <li>--%>
+<%--                                <a href="#" aria-label="Previous">--%>
+<%--                                    <span aria-hidden="true">&laquo;</span>--%>
+<%--                                </a>--%>
+<%--                            </li>--%>
+<%--                            <li class="active"><a href="#">1</a></li>--%>
+<%--                            <li><a href="#">2</a></li>--%>
+<%--                            <li><a href="#">3</a></li>--%>
+<%--                            <li><a href="#">4</a></li>--%>
+<%--                            <li><a href="#">5</a></li>--%>
+<%--                            <li>--%>
+<%--                                <a href="#" aria-label="Next">--%>
+<%--                                    <span aria-hidden="true">&raquo;</span>--%>
+<%--                                </a>--%>
+<%--                            </li>--%>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="warehousedetaillist">
+<%--                <a style="margin-left: 700px;">--%>
+<%--                    <button class="btn btn-info btn-sm" onclick="">显示全部</button>--%>
+<%--                </a>--%>
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                    <tr><th>编号</th><th>仓库名</th><th>货品名</th><th>货品明细</th><th>货品数量</th></tr>
+                    </thead>
+                    <tbody id="warehousedetaillists">
+
+                    </tbody>
+                </table>
+                <div style="margin-left: 400px">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination" id="warehouseDetailsPage">
 <%--                            <li>--%>
 <%--                                <a href="#" aria-label="Previous">--%>
 <%--                                    <span aria-hidden="true">&laquo;</span>--%>
@@ -293,10 +283,10 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="saveGoodsNo">新增货物编号</label>
-                        <input type="text" class="form-control" id="saveGoodsNo" name="saveGoodsNo" placeholder="货物编号">
-                    </div>
+                    <%--                    <div class="form-group">--%>
+                    <%--                        <label for="saveGoodsNo">新增货物编号</label>--%>
+                    <%--                        <input type="text" class="form-control" id="saveGoodsNo" name="saveGoodsNo" placeholder="货物编号">--%>
+                    <%--                    </div>--%>
                     <div class="form-group">
                         <label for="saveGoodsName">新增货物名称</label>
                         <input type="text" class="form-control" id="saveGoodsName" name="saveGoodsName" placeholder="货物名">
@@ -321,10 +311,10 @@
             <div class="modal-body">
                 <form>
                     <input type="hidden" class="form-control" name="updategoodsid" id="updategoodsid">
-                    <div class="form-group">
-                        <label for="UpdateGoodsNo">修改货物编号</label>
-                        <input type="text" class="form-control" id="UpdateGoodsNo" name="UpdateGoodsNo" placeholder="货物编号">
-                    </div>
+                    <%--                    <div class="form-group">--%>
+                    <%--                        <label for="UpdateGoodsNo">修改货物编号</label>--%>
+                    <%--                        <input type="text" class="form-control" id="UpdateGoodsNo" name="UpdateGoodsNo" placeholder="货物编号">--%>
+                    <%--                    </div>--%>
                     <div class="form-group">
                         <label for="UpdateGoodsName">修改货物名称</label>
                         <input type="text" class="form-control" id="UpdateGoodsName" name="UpdateGoodsName" placeholder="货物名">

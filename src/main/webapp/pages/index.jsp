@@ -16,7 +16,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/boot/js/bootstrap.min.js"></script>
 
 </head>
-<body>
+<body onmousemove="timereset()">
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">

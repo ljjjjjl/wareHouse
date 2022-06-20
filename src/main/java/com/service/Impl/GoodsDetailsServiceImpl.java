@@ -90,6 +90,7 @@ public class GoodsDetailsServiceImpl implements GoodsDetailsService {
         List<GoodsDetails> list = goodsDetailsDao.findByPage(others_id,start,pageInfo.getSize());
 
         pageInfo.setList(list);
+        pageInfo.setOthers_id(others_id);
         return pageInfo;
     }
 
@@ -122,6 +123,8 @@ public class GoodsDetailsServiceImpl implements GoodsDetailsService {
         pageInfo.setList(list);
         return pageInfo;
     }
+
+
 
 
 }

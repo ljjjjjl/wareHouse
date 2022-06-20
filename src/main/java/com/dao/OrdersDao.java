@@ -8,11 +8,18 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface OrdersDao {
+//    @Insert("insert into orders " +
+//            "(orders_id,orders_type,orders_address,orders_note,warehouse_id,user_id)" +
+//            "values(#{orders_id},#{orders_type},#{orders_address}," +
+//            "#{orders_note},#{warehouse_id},#{user_id})")
     @Insert("insert into orders " +
-            "(orders_id,orders_type,orders_address,orders_note,warehouse_id,user_id)" +
-            "values(#{orders_id},#{orders_type},#{orders_address}," +
-            "#{orders_note},#{warehouse_id},#{user_id})")
+        "(orders_type,orders_address,orders_note,warehouse_id,user_id)" +
+        "values(#{orders_type},#{orders_address}," +
+        "#{orders_note},#{warehouse_id},#{user_id})")
     public int save(Orders orders);
+    @Select("select max(id) from orders")
+    public int maxId();
+
 
     @Update("update orders set " +
             "orders_id =#{orders_id},orders_address =#{orders_address} ," +

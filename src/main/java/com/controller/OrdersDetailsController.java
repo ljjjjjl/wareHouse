@@ -140,6 +140,20 @@ public class OrdersDetailsController {
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
 
+    @PatchMapping("/{id}")
+    public Result getbyid(@PathVariable Integer id){
+        OrdersDetails ordersDetails = ordersDetailsService.getById(id);
+        String msg = "";
+        Integer code = Code.SYSTEM_UNKNOW_ERR;
+        if (ordersDetails != null){
+            code = Code.GET_OK;
+            msg = "查询数据成功";
+        }else {
+            code = Code.GET_ERR;
+            msg = "查询数据失败";
+        }
+        return new Result(code,ordersDetails,msg);
+    }
     @PostMapping("/page")
     public Result findByPage(@RequestBody PageInfo pageInfo) {
         PageInfo<OrdersDetails> pages =ordersDetailsService.findByPage(pageInfo.getOthers_id(),pageInfo.getCurrentPage());

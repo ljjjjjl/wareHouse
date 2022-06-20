@@ -1,5 +1,7 @@
 package com.service;
 
+import com.domain.PageInfo;
+import com.domain.Warehouse;
 import com.domain.WarehouseDetails;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,4 +45,10 @@ public interface WarehouseDetailsService {
      * @return
      */
     public boolean save(WarehouseDetails warehouseDetails);
+
+    /**
+     * 获得页面的分页信息
+     * @return
+     */
+    public PageInfo<WarehouseDetails> findByPage(int others_id,int currentPage);
 }

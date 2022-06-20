@@ -7,8 +7,11 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface GoodsDao {
-    @Insert("insert into goods (goods_id,goods_name)values(#{goods_id},#{goods_name})")
+//    @Insert("insert into goods (goods_id,goods_name)values(#{goods_id},#{goods_name})")
+    @Insert("insert into goods (goods_name)values(#{goods_name})")
     public int save(Goods goods);
+    @Select("select max(id) from goods")
+    public int maxId();
 
     @Update("update goods set goods_id =#{goods_id},goods_name=#{goods_name} where id =#{id}")
     public int update(Goods goods);

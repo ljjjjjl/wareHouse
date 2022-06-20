@@ -65,22 +65,26 @@ function ordersoutPageView(p){
     }
     $("#orderoutPage").append("<li> <a onclick='SelectOrderOut("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
-    orderoutView(p.list)
+    orderoutView(p)
 }
 //显示出库
-function orderoutView(list) {
+function orderoutView(p) {
     $("#orderoutlists").empty();
-    for (i in list) {
-        var time = new Date(list[i].orders_date).Format("yyyy-MM-dd hh:mm:ss");
-        $("#orderoutlists").append("<tr>" + "<td>" + list[i].id +
-            "</td><td><a onclick='toorderoutdetail("+list[i].id+")'>" + list[i].orders_id +"</a>"+
-            "</td><td>" + list[i].orders_address +
+    for (i in p.list) {
+        var time = new Date(p.list[i].orders_date).Format("yyyy-MM-dd hh:mm:ss");
+        $("#orderoutlists").append("" +
+            "<tr>" +
+            // "<td>" + p.list[i].id +
+            // "</td>" +
+            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
+            "</td><td><a onclick='toorderoutdetail("+p.list[i].id+")'>" + p.list[i].orders_id +"</a>"+
+            "</td><td>" + p.list[i].orders_address +
             "</td><td>" + time +
-            "</td><td>" + list[i].orders_note +
-            "</td><td>" + list[i].warehouse_id +
-            "</td><td>" + list[i].user_id +
-            "</td><td>" + "<a onclick='OrderoutDelete(" + list[i].id + ")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
-            "<a onclick='OrderoutEditModel(" + list[i].id + ")' data-toggle='modal' data-target='#updateOrderoutModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
+            "</td><td>" + p.list[i].orders_note +
+            "</td><td>" + p.list[i].warehouse_id +
+            "</td><td>" + p.list[i].user_id +
+            "</td><td>" + "<a onclick='OrderoutDelete(" + p.list[i].id + ")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
+            "<a onclick='OrderoutEditModel(" + p.list[i].id + ")' data-toggle='modal' data-target='#updateOrderoutModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
             "</td>" + "<tr>")
     }
 }
@@ -349,22 +353,26 @@ function ordersinPageView(p){
     }
     $("#orderinPage").append("<li> <a onclick='SelectOrderIn("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
-    orderinView(p.list)
+    orderinView(p)
 }
 //入库显示
-function orderinView(list) {
+function orderinView(p) {
     $("#orderinlists").empty();
-    for (i in list) {
-        var time = new Date(list[i].orders_date).Format("yyyy-MM-dd hh:mm:ss");
-        $("#orderinlists").append("<tr>" + "<td>" + list[i].id +
-            "</td><td><a onclick='toorderindetail("+list[i].id+")'>" + list[i].orders_id +"</a>"+
-            "</td><td>" + list[i].orders_address +
+    for (i in p.list) {
+        var time = new Date(p.list[i].orders_date).Format("yyyy-MM-dd hh:mm:ss");
+        $("#orderinlists").append("" +
+            "<tr>" +
+            // "<td>" + p.list[i].id +
+            // "</td>" +
+            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
+            "</td><td><a onclick='toorderindetail("+p.list[i].id+")'>" + p.list[i].orders_id +"</a>"+
+            "</td><td>" + p.list[i].orders_address +
             "</td><td>" + time +
-            "</td><td>" + list[i].orders_note +
-            "</td><td>" + list[i].warehouse_id +
-            "</td><td>" + list[i].user_id +
-            "</td><td>" + "<a onclick='OrderinDelete(" + list[i].id + ")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
-            "<a onclick='OrderinEditModel(" + list[i].id + ")' data-toggle='modal' data-target='#updateOrderinModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
+            "</td><td>" + p.list[i].orders_note +
+            "</td><td>" + p.list[i].warehouse_id +
+            "</td><td>" + p.list[i].user_id +
+            "</td><td>" + "<a onclick='OrderinDelete(" + p.list[i].id + ")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
+            "<a onclick='OrderinEditModel(" + p.list[i].id + ")' data-toggle='modal' data-target='#updateOrderinModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
             "</td>" + "<tr>");
     }
 }
@@ -678,13 +686,17 @@ function orderoutdetailPageView(orders_id,p){
     }
     $("#orderoutdetailPage").append("<li> <a onclick='SelectOrderOutDetail("+orders_id+","+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
-    orderoutdetailView(p.list)
+    orderoutdetailView(p)
 }
 //显示出库明细
-function orderoutdetailView(list){
+function orderoutdetailView(p){
     $("#orderoutdetaillists").empty();
-    $.each(list,function (i,orderdetail){
-        $("#orderoutdetaillists").append("<tr><td>" + orderdetail.id +
+    $.each(p.list,function (i,orderdetail){
+        $("#orderoutdetaillists").append("" +
+            "<tr>" +
+            // "<td>" + orderdetail.id +
+            // "</td>" +
+            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
             "</td><td>" + orderdetail.amount +
             "</td><td>" + orderdetail.goods_details_id +
             "</td><td>" + orderdetail.orders_id +
@@ -940,13 +952,17 @@ function orderindetailPageView(orders_id,p){
     }
     $("#orderindetailPage").append("<li> <a onclick='SelectOrderInDetail("+orders_id+","+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
-    orderindetailView(p.list)
+    orderindetailView(p)
 }
 //显示入库明细
-function orderindetailView(list){
+function orderindetailView(p){
     $("#orderindetaillists").empty();
-    $.each(list,function (i,orderdetail){
-        $("#orderindetaillists").append("<tr><td>" + orderdetail.id +
+    $.each(p.list,function (i,orderdetail){
+        $("#orderindetaillists").append("" +
+            "<tr>" +
+            // "<td>" + orderdetail.id +
+            // "</td>" +
+            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
             "</td><td>" + orderdetail.amount +
             "</td><td>" + orderdetail.goods_details_id +
             "</td><td>" + orderdetail.orders_id +

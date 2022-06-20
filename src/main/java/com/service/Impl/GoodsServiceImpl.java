@@ -1,6 +1,7 @@
 package com.service.Impl;
 
 import com.controller.result.Code;
+import com.controller.result.RandomString;
 import com.dao.GoodsDao;
 
 import com.domain.Goods;
@@ -17,10 +18,21 @@ import java.util.List;
 public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private GoodsDao goodsDao;
+    private RandomString randomString;
 
     @Override
     public boolean save(Goods goods) {
-        return goodsDao.save(goods)>0;
+//        System.out.println(randomString.getRandomString(2));
+        int flag =goodsDao.save(goods);
+        if (flag>0){
+            goods.setId(goodsDao.maxId());
+            //生成随机数
+            goods.setGoods_id(randomString.getRandomString(5)+goods.getId());
+            flag =goodsDao.update(goods);
+        }else {
+            throw new SqlException(Code.SQL_ADDGOODS_ERR,"新添货品失败");
+        }
+        return flag>0;
     }
 
     @Override

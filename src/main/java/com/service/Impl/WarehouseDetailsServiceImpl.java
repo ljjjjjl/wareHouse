@@ -2,6 +2,8 @@ package com.service.Impl;
 
 import com.controller.result.Code;
 import com.dao.WarehouseDetailsDao;
+import com.domain.GoodsDetails;
+import com.domain.PageInfo;
 import com.domain.WarehouseDetails;
 import com.exception.SqlException;
 import com.service.WarehouseDetailsService;
@@ -50,5 +52,37 @@ public class WarehouseDetailsServiceImpl implements WarehouseDetailsService {
     public boolean save(WarehouseDetails warehouseDetails) {
         return warehouseDetailsDao.save(warehouseDetails)>0;
     }
+
+    @Override
+    public PageInfo<WarehouseDetails> findByPage(int others_id, int currentPage) {
+        PageInfo<WarehouseDetails> pageInfo = new PageInfo<>();
+        //获取每页的数据量
+        pageInfo.setSize(5);
+
+        //获取总数据量
+        int totalCount = warehouseDetailsDao.getTotal(others_id);//中断
+        pageInfo.setTotalCount(totalCount);
+        //获取总页数
+        int totalPage = (int)Math.ceil(totalCount/(double)pageInfo.getSize());
+        pageInfo.setTotalPage(totalPage);
+
+        //判断当前页是否合理
+        if(currentPage<1){
+            pageInfo.setCurrentPage(1);
+        }else if(currentPage>totalPage){
+            pageInfo.setCurrentPage(totalPage);
+        }else {
+            pageInfo.setCurrentPage(currentPage);
+        }
+
+        int start = (pageInfo.getCurrentPage()-1)*pageInfo.getSize();
+        //查询当前页面下所有的用户信息
+        List<WarehouseDetails> list = warehouseDetailsDao.findByPage(others_id,start,pageInfo.getSize());
+
+        pageInfo.setList(list);
+        pageInfo.setOthers_id(others_id);
+        return pageInfo;
+    }
+
 
 }

@@ -2,6 +2,7 @@ package com.controller;
 
 import com.controller.result.Code;
 import com.controller.result.Result;
+import com.domain.PageInfo;
 import com.domain.User;
 import com.domain.WarehouseDetails;
 import com.exception.SqlException;
@@ -23,6 +24,14 @@ public class WarehouseDetailsController {
         Integer code = list!=null ? Code.GET_OK:Code.GET_ERR;
         String msg = list!=null ?"":"数据查询失败！";
         return new Result(code,list,msg);
+    }
+
+    @PostMapping("/page")
+    public Result findByPage(@RequestBody PageInfo pageInfo) {
+        PageInfo<WarehouseDetails> pages =warehouseDetailsService.findByPage(pageInfo.getOthers_id(),pageInfo.getCurrentPage());
+        Integer code = pages!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = pages!=null ?"库存信息查询成功":"库存信息查询失败！";
+        return new Result(code,pages,msg);
     }
 
     /**
@@ -50,26 +59,6 @@ public class WarehouseDetailsController {
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
 
-//    @PutMapping("/in")
-//    public Result updateIn(@RequestBody WarehouseDetails warehouseDetails) {
-//        int num;
-//        boolean flag;
-//        warehouseDetails.setId(warehouseDetailsService.uniqueId(warehouseDetails));
-//        num =warehouseDetailsService.selectNum(warehouseDetails) -warehouseDetails.getNum();
-//
-//        if (flag){
-//
-//
-//            num =warehouseDetails.getNum() + warehouseDetailsService.selectNum(warehouseDetails);
-//            warehouseDetails.setNum(num);
-//            flag =warehouseDetailsService.updateNum(warehouseDetails);
-//
-//        }else {
-//            flag =warehouseDetailsService.save(warehouseDetails);
-//        }
-//
-//        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
-//    }
     /**
      * 出库：
      * 先查询仓库明细表，找到该仓库的该货品的if(库存数量>出库单数量)
@@ -95,24 +84,4 @@ public class WarehouseDetailsController {
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
 
-//    @PutMapping("/out")
-//    public Result updateOut(@RequestBody WarehouseDetails warehouseDetails) {
-//        int num;
-//        boolean flag;
-//        warehouseDetails.setId(warehouseDetailsService.uniqueId(warehouseDetails));
-//        num =warehouseDetailsService.selectNum(warehouseDetails) -warehouseDetails.getNum();
-//
-//        if (flag){
-//
-//
-//            num =warehouseDetails.getNum() + warehouseDetailsService.selectNum(warehouseDetails);
-//            warehouseDetails.setNum(num);
-//            flag =warehouseDetailsService.updateNum(warehouseDetails);
-//
-//        }else {
-//            flag =warehouseDetailsService.save(warehouseDetails);
-//        }
-//
-//        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
-//    }
 }

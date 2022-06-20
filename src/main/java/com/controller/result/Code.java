@@ -19,6 +19,7 @@ public class Code {
 
     public static final Integer SQL_REPEATUSER_ERR =50001;
     public static final Integer SQL_LESSTHANZERO_ERR =50002;
+    public static final Integer SQL_ADDGOODS_ERR =50002;
 
 
 
