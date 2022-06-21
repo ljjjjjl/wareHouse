@@ -33,9 +33,11 @@ public class UserController {
         boolean flag =userService.update(user);
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
+
     @DeleteMapping
     public Result change(@RequestBody User user) {
         boolean flag =userService.change(user);
+
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
 
@@ -68,7 +70,7 @@ public class UserController {
     public Result login(@RequestBody User user){
         User u =userService.login(user);
         Integer code = u!=null ? Code.LOGIN_OK:Code.LOGIN_ERR;
-        String msg = u!=null ?"登录成功":"数据查询失败！";
+        String msg = u!=null ?"登录成功":"登录失败！";
         request.getSession().setAttribute("loginUser",u);
 //        System.out.println(u);
         return new Result(code,u,msg);
@@ -80,6 +82,7 @@ public class UserController {
         String msg = null;
         User u = (User)request.getSession().getAttribute("loginUser");
         String username = u.getUser_name();
+//        System.out.println(u);
         try {
             HttpSession session = request.getSession();
             //销毁Session

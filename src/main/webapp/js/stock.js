@@ -210,7 +210,89 @@ function OrderoutEdit() {
 }
 
 //出库查询
+function OrderoutSearch(){
+    const start = $("#startOrderout").val();
+    const over = $("#overOrderout").val();
+    if (start === "" && over === ""){
+        SelectOrderOut();
+    }else {
+        $.ajax({
+            type:"POST",
+            url:"/orders/info/out",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            data:JSON.stringify({
+                "currentPage": 1,
+                "start": start,
+                "over":over
+            }),
+            dataType:"json",
+            async: false,
+            success:function (result){
+                var obj = typeof result=='string'?JSON.parse(result):result;
+                if(obj.code === 20041){
+                    var p=obj.data;
+                    OrderoutSearchView(p);
+                }else {
+                    alert(obj.msg);
+                }
+            },
+            error:function(){
+                alert("系统繁忙，请重试！！！");
+            }
+        });
+    }
+}
+function OrderoutSearchByPage(page){
+    const start = $("#startOrderout").val();
+    const over = $("#overOrderout").val();
+    if (start === "" && over === ""){
+        SelectOrderOut();
+    }else {
+        $.ajax({
+            type:"POST",
+            url:"/orders/info/out",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            data:JSON.stringify({
+                "currentPage": page,
+                "start": start,
+                "over":over
+            }),
+            dataType:"json",
+            async: false,
+            success:function (result){
+                var obj = typeof result=='string'?JSON.parse(result):result;
+                if(obj.code === 20041){
+                    var p=obj.data;
+                    OrderoutSearchView(p);
+                }else {
+                    alert(obj.msg);
+                }
+            },
+            error:function(){
+                alert("系统繁忙，请重试！！！");
+            }
+        });
+    }
+}
+function OrderoutSearchView(p){
+    $("#orderoutPage").empty()
+    console.log(p.currentPage)
 
+    $("#orderoutPage").append("<li> <a onclick='OrderoutSearchByPage("+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
+    for (let i = 1; i <= p.totalPage; i++){
+        if (p.currentPage ===i)
+            $("#orderoutPage").append("<li class='active'><a onclick='OrderoutSearchByPage("+i+")'>" + i +"</a><li/>");
+        else
+            $("#orderoutPage").append("<li ><a onclick='OrderoutSearchByPage("+i+")'>" + i +"</a><li/>");
+    }
+    $("#orderoutPage").append("<li> <a onclick='OrderoutSearchByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
+
+    orderoutView(p);
+}
 
 //查询仓库名
 function SelectwarenameoutA() {
@@ -497,7 +579,88 @@ function OrderinEdit() {
 }
 
 //入库查询
+function OrderinSearch(){
+    const start = $("#startOrderin").val();
+    const over = $("#overOrderin").val();
+    if (start === "" && over === ""){
+        SelectOrderIn();
+    }else {
+        $.ajax({
+            type:"POST",
+            url:"/orders/info/in",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            data:JSON.stringify({
+                "currentPage": 1,
+                "start": start,
+                "over":over
+            }),
+            dataType:"json",
+            async: false,
+            success:function (result){
+                var obj = typeof result=='string'?JSON.parse(result):result;
+                if(obj.code === 20041){
+                    var p=obj.data;
+                    OrderinSearchView(p);
+                }else {
+                    alert(obj.msg);
+                }
+            },
+            error:function(){
+                alert("系统繁忙，请重试！！！");
+            }
+        });
+    }
+}
+function OrderinSearchByPage(page){
+    const start = $("#startOrderin").val();
+    const over = $("#overOrderin").val();
+    if (start === "" && over === ""){
+        SelectOrderIn();
+    }else {
+        $.ajax({
+            type:"POST",
+            url:"/orders/info/in",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            data:JSON.stringify({
+                "currentPage": page,
+                "start": start,
+                "over":over
+            }),
+            dataType:"json",
+            async: false,
+            success:function (result){
+                var obj = typeof result=='string'?JSON.parse(result):result;
+                if(obj.code === 20041){
+                    var p=obj.data;
+                    OrderinSearchView(p);
+                }else {
+                    alert(obj.msg);
+                }
+            },
+            error:function(){
+                alert("系统繁忙，请重试！！！");
+            }
+        });
+    }
+}
+function OrderinSearchView(p){
+    $("#orderinPage").empty()
 
+    $("#orderinPage").append("<li> <a onclick='OrderinSearchByPage("+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
+    for (let i = 1; i <= p.totalPage; i++){
+        if (p.currentPage ===i)
+            $("#orderinPage").append("<li class='active'><a onclick='OrderinSearchByPage("+i+")'>" + i +"</a><li/>");
+        else
+            $("#orderinPage").append("<li ><a onclick='OrderinSearchByPage("+i+")'>" + i +"</a><li/>");
+    }
+    $("#orderinPage").append("<li> <a onclick='OrderinSearchByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
+
+    orderinView(p);
+}
 //入库查询仓库名
 function SelectwarenameinA() {
     $.ajax({
@@ -563,7 +726,7 @@ function toorderoutdetail(id){
 
 //获取出库明细列表
 function SelectOrderOutDetail(orders_id){
-    if(id !== null){
+    if(orders_id !== null){
         $.ajax({
             type:"POST",
             url:"/orders_details/page",
@@ -592,9 +755,10 @@ function SelectOrderOutDetail(orders_id){
     }else{
         $.ajax({
             type:"POST",
-            url:"/orders_details/page",
+            url:"/orders_details/info",
             data:JSON.stringify({
-                "others_id":orders_id,
+                // "others_id":orders_id,
+                "info":"出库",
                 "currentPage": 1
             }),
             headers: {
@@ -617,7 +781,7 @@ function SelectOrderOutDetail(orders_id){
         });
     }
 }
-function SelectOrderOutDetail(orders_id,page){
+function SelectOrderOutDetailByPage(orders_id,page){
     if(orders_id !== null){
         $.ajax({
             type:"POST",
@@ -647,9 +811,10 @@ function SelectOrderOutDetail(orders_id,page){
     }else{
         $.ajax({
             type:"POST",
-            url:"/orders_details/page",
+            url:"/orders_details/info",
             data:JSON.stringify({
-                "others_id":orders_id,
+                // "others_id":orders_id,
+                "info":"出库",
                 "currentPage": page
             }),
             headers: {
@@ -677,14 +842,14 @@ function orderoutdetailPageView(orders_id,p){
     $("#orderoutdetailPage").empty()
     console.log(p.currentPage)
 
-    $("#orderoutdetailPage").append("<li> <a onclick='SelectOrderOutDetail("+orders_id+","+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
+    $("#orderoutdetailPage").append("<li> <a onclick='SelectOrderOutDetailByPage("+orders_id+","+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
     for (let i = 1; i <= p.totalPage; i++){
         if (p.currentPage ===i)
-            $("#orderoutdetailPage").append("<li class='active'><a onclick='SelectOrderOutDetail("+orders_id+","+i+")'>" + i +"</a><li/>");
+            $("#orderoutdetailPage").append("<li class='active'><a onclick='SelectOrderOutDetailByPage("+orders_id+","+i+")'>" + i +"</a><li/>");
         else
-            $("#orderoutdetailPage").append("<li ><a onclick='SelectOrderOutDetail("+orders_id+","+i+")'>" + i +"</a><li/>");
+            $("#orderoutdetailPage").append("<li ><a onclick='SelectOrderOutDetailByPage("+orders_id+","+i+")'>" + i +"</a><li/>");
     }
-    $("#orderoutdetailPage").append("<li> <a onclick='SelectOrderOutDetail("+orders_id+","+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
+    $("#orderoutdetailPage").append("<li> <a onclick='SelectOrderOutDetailByPage("+orders_id+","+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
     orderoutdetailView(p)
 }
@@ -692,19 +857,74 @@ function orderoutdetailPageView(orders_id,p){
 function orderoutdetailView(p){
     $("#orderoutdetaillists").empty();
     $.each(p.list,function (i,orderdetail){
-        $("#orderoutdetaillists").append("" +
-            "<tr>" +
-            // "<td>" + orderdetail.id +
-            // "</td>" +
-            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
-            "</td><td>" + orderdetail.amount +
-            "</td><td>" + orderdetail.goods_details_id +
-            "</td><td>" + orderdetail.orders_id +
-            "</td><td>" + "<a onclick='orderoutdetailDelete(" + orderdetail.id+","+orderdetail.orders_id +")'>" +
-            "<button class='btn btn-danger btn-sm'>删除</button></a>" +
-            "<a onclick='orderoutdetailEditModel(" + orderdetail.id+","+orderdetail.orders_id +")' data-toggle='modal' data-target='#updateOrderoutdetailModel'>" +
-            "<button class='btn btn-warning btn-sm'>修改</button></a>" +
-            "</td><tr>");
+        $.ajax({
+            type: "PATCH",
+            url: "/goods_details/"+ orderdetail.goods_details_id,
+            async: false,
+            success: function (result) {
+                var goodsdetail = typeof result == 'string' ? JSON.parse(result) : result;
+                var Goodsdetail = goodsdetail.data;
+                if (goodsdetail.code === 20041) {
+                    $.ajax({
+                        type:"GET",
+                        url:"/goods/"+Goodsdetail.goods_id,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                        },
+                        dataType:"json",
+                        async: false,
+                        success:function (result){
+                            const goods = typeof result == 'string' ? JSON.parse(result) : result;
+                            const Goods = goods.data;
+                            if(goods.code === 20041) {
+                                $.ajax({
+                                    type:"GET",
+                                    url:"/orders/"+orderdetail.orders_id,
+                                    headers: {
+                                        'Content-Type': 'application/json;charset=utf-8',
+                                    },
+                                    dataType:"json",
+                                    async: false,
+                                    success:function (result){
+                                        const orders = typeof result == 'string' ? JSON.parse(result) : result;
+                                        const Orders = orders.data;
+                                        if(orders.code === 20041) {
+                                            $.ajax({
+                                                type:"GET",
+                                                url:"/warehouse/"+Orders.warehouse_id,
+                                                headers: {
+                                                    'Content-Type': 'application/json;charset=utf-8',
+                                                },
+                                                dataType:"json",
+                                                async: false,
+                                                success:function (result){
+                                                    const warehouse = typeof result == 'string' ? JSON.parse(result) : result;
+                                                    const Warehouse = warehouse.data;
+                                                    if(warehouse.code === 20041) {
+                                                        $("#orderoutdetaillists").append("<tr>" +
+                                                            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
+                                                            "</td><td>" + Orders.orders_id +
+                                                            "</td><td>" + Warehouse +
+                                                            "</td><td>" + Goods.goods_name +
+                                                            "</td><td>" + Goodsdetail.goods_color+","+Goodsdetail.goods_size +
+                                                            "</td><td>" + orderdetail.amount +
+                                                            "</td><td>" + "<a onclick='orderoutdetailDelete(" + orderdetail.id+","+orderdetail.orders_id +")'>" +
+                                                            "<button class='btn btn-danger btn-sm'>删除</button></a>" +
+                                                            "<a onclick='orderoutdetailEditModel(" + orderdetail.id+","+orderdetail.orders_id +")' data-toggle='modal' data-target='#updateOrderoutdetailModel'>" +
+                                                            "<button class='btn btn-warning btn-sm'>修改</button></a>" +
+                                                            "</td><tr>");
+                                                    }
+                                                },
+                                            });
+                                        }
+                                    },
+                                });
+                            }
+                        },
+                    });
+                }
+            }
+        })
     })
 }
 
@@ -885,13 +1105,14 @@ function toorderindetail(id){
 
 //获取入库明细列表
 function SelectOrderInDetail(orders_id){
-    $.ajax({
+    if(orders_id!=null){
+        $.ajax({
             type:"POST",
             url:"/orders_details/page",
-        data:JSON.stringify({
-            "others_id":orders_id,
-            "currentPage": 1
-        }),
+            data:JSON.stringify({
+                "others_id":orders_id,
+                "currentPage": 1
+            }),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
             },
@@ -910,47 +1131,102 @@ function SelectOrderInDetail(orders_id){
                 alert("系统繁忙，请重试！！！");
             }
         });
-}
-function SelectOrderInDetail(orders_id,page){
-    $.ajax({
-        type:"POST",
-        url:"/orders_details/page",
-        data:JSON.stringify({
-            "others_id":orders_id,
-            "currentPage": page
-        }),
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-        },
-        dataType:"json",
-        async: false,
-        success:function (result){
-            var obj = typeof result=='string'?JSON.parse(result):result;
-            if(obj.code === 20041){
-                var list=obj.data;
-                orderindetailPageView(orders_id,list);
-            }else {
-                alert(obj.msg);
+    }else{
+        $.ajax({
+            type:"POST",
+            url:"/orders_details/info",
+            data:JSON.stringify({
+                "info":"入库",
+                "currentPage": 1
+            }),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            dataType:"json",
+            async: false,
+            success:function (result){
+                var obj = typeof result=='string'?JSON.parse(result):result;
+                if(obj.code === 20041){
+                    var list=obj.data;
+                    orderindetailPageView(orders_id,list);
+                }else {
+                    alert(obj.msg);
+                }
+            },
+            error:function(){
+                alert("系统繁忙，请重试！！！");
             }
-        },
-        error:function(){
-            alert("系统繁忙，请重试！！！");
-        }
-    });
+        });
+    }
+}
+function SelectOrderInDetailByPage(orders_id,page){
+    if(orders_id !== null){
+        $.ajax({
+            type:"POST",
+            url:"/orders_details/page",
+            data:JSON.stringify({
+                "others_id":orders_id,
+                "currentPage": page
+            }),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            dataType:"json",
+            async: false,
+            success:function (result){
+                var obj = typeof result=='string'?JSON.parse(result):result;
+                if(obj.code === 20041){
+                    var list=obj.data;
+                    orderindetailPageView(orders_id,list);
+                }else {
+                    alert(obj.msg);
+                }
+            },
+            error:function(){
+                alert("系统繁忙，请重试！！！");
+            }
+        });
+    }else{
+        $.ajax({
+            type:"POST",
+            url:"/orders_details/info",
+            data:JSON.stringify({
+                "info":"入库",
+                "currentPage": page
+            }),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            dataType:"json",
+            async: false,
+            success:function (result){
+                var obj = typeof result=='string'?JSON.parse(result):result;
+                if(obj.code === 20041){
+                    var list=obj.data;
+                    orderindetailPageView(orders_id,list);
+                }else {
+                    alert(obj.msg);
+                }
+            },
+            error:function(){
+                alert("系统繁忙，请重试！！！");
+            }
+        });
+    }
 }
 //页码显示
 function orderindetailPageView(orders_id,p){
     $("#orderindetailPage").empty()
     console.log(p.currentPage)
 
-    $("#orderindetailPage").append("<li> <a onclick='SelectOrderInDetail("+orders_id+","+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
+    $("#orderindetailPage").append("<li> <a onclick='SelectOrderInDetailByPage("+orders_id+","+(Number(p.currentPage)-1)+")' aria-label='Previous'><span aria-hidden=\"true\">&laquo;</span></a></li>")
     for (let i = 1; i <= p.totalPage; i++){
         if (p.currentPage ===i)
-            $("#orderindetailPage").append("<li class='active'><a onclick='SelectOrderInDetail("+orders_id+","+i+")'>" + i +"</a><li/>");
+            $("#orderindetailPage").append("<li class='active'><a onclick='SelectOrderInDetailByPage("+orders_id+","+i+")'>" + i +"</a><li/>");
         else
-            $("#orderindetailPage").append("<li ><a onclick='SelectOrderInDetail("+orders_id+","+i+")'>" + i +"</a><li/>");
+            $("#orderindetailPage").append("<li ><a onclick='SelectOrderInDetailByPage("+orders_id+","+i+")'>" + i +"</a><li/>");
     }
-    $("#orderindetailPage").append("<li> <a onclick='SelectOrderInDetail("+orders_id+","+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
+    $("#orderindetailPage").append("<li> <a onclick='SelectOrderInDetailByPage("+orders_id+","+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
     orderindetailView(p)
 }
@@ -958,19 +1234,74 @@ function orderindetailPageView(orders_id,p){
 function orderindetailView(p){
     $("#orderindetaillists").empty();
     $.each(p.list,function (i,orderdetail){
-        $("#orderindetaillists").append("" +
-            "<tr>" +
-            // "<td>" + orderdetail.id +
-            // "</td>" +
-            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
-            "</td><td>" + orderdetail.amount +
-            "</td><td>" + orderdetail.goods_details_id +
-            "</td><td>" + orderdetail.orders_id +
-            "</td><td>" + "<a onclick='orderindetailDelete(" + orderdetail.id+","+orderdetail.orders_id +")'>" +
-            "<button class='btn btn-danger btn-sm'>删除</button></a>" +
-            "<a onclick='orderindetailEditModel(" + orderdetail.id+","+orderdetail.orders_id +")' data-toggle='modal' data-target='#updateOrderindetailModel'>" +
-            "<button class='btn btn-warning btn-sm'>修改</button></a>" +
-            "</td><tr>");
+        $.ajax({
+            type: "PATCH",
+            url: "/goods_details/"+ orderdetail.goods_details_id,
+            async: false,
+            success: function (result) {
+                var goodsdetail = typeof result == 'string' ? JSON.parse(result) : result;
+                var Goodsdetail = goodsdetail.data;
+                if (goodsdetail.code === 20041) {
+                    $.ajax({
+                        type:"GET",
+                        url:"/goods/"+Goodsdetail.goods_id,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                        },
+                        dataType:"json",
+                        async: false,
+                        success:function (result){
+                            const goods = typeof result == 'string' ? JSON.parse(result) : result;
+                            const Goods = goods.data;
+                            if(goods.code === 20041) {
+                                $.ajax({
+                                    type:"GET",
+                                    url:"/orders/"+orderdetail.orders_id,
+                                    headers: {
+                                        'Content-Type': 'application/json;charset=utf-8',
+                                    },
+                                    dataType:"json",
+                                    async: false,
+                                    success:function (result){
+                                        const orders = typeof result == 'string' ? JSON.parse(result) : result;
+                                        const Orders = orders.data;
+                                        if(orders.code === 20041) {
+                                            $.ajax({
+                                                type:"GET",
+                                                url:"/warehouse/"+Orders.warehouse_id,
+                                                headers: {
+                                                    'Content-Type': 'application/json;charset=utf-8',
+                                                },
+                                                dataType:"json",
+                                                async: false,
+                                                success:function (result){
+                                                    const warehouse = typeof result == 'string' ? JSON.parse(result) : result;
+                                                    const Warehouse = warehouse.data;
+                                                    if(warehouse.code === 20041) {
+                                                        $("#orderindetaillists").append("<tr>" +
+                                                            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
+                                                            "</td><td>" + Orders.orders_id +
+                                                            "</td><td>" + Warehouse +
+                                                            "</td><td>" + Goods.goods_name +
+                                                            "</td><td>" + Goodsdetail.goods_color+","+Goodsdetail.goods_size +
+                                                            "</td><td>" + orderdetail.amount +
+                                                            "</td><td>" + "<a onclick='orderindetailDelete(" + orderdetail.id+","+orderdetail.orders_id +")'>" +
+                                                            "<button class='btn btn-danger btn-sm'>删除</button></a>" +
+                                                            "<a onclick='orderindetailEditModel(" + orderdetail.id+","+orderdetail.orders_id +")' data-toggle='modal' data-target='#updateOrderindetailModel'>" +
+                                                            "<button class='btn btn-warning btn-sm'>修改</button></a>" +
+                                                            "</td><tr>");
+                                                    }
+                                                },
+                                            });
+                                        }
+                                    },
+                                });
+                            }
+                        },
+                    });
+                }
+            }
+        })
     })
 }
 

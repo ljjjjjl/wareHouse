@@ -21,9 +21,11 @@
                 <a data-toggle="modal" data-target="#saveOrderoutModel">
                     <button class="btn btn-success btn-sm" id="saveOrderout" onclick="SelectwarenameoutA()">增加出库信息</button>
                 </a>
-                <a style="margin-left: 560px;">
-                    <label for="inqueryOrderout"></label><input id="inqueryOrderout" type="search" placeholder="请输入查询信息" style="height: 29px"/>
-                    <button class="btn btn-info btn-sm">查询</button>
+                <a style="margin-left: 560px">
+                    <label for="startOrderout"></label><input id="startOrderout" type="date" placeholder="请输入开始时间" style="height: 29px"/>
+                    <span class="glyphicon glyphicon-minus"></span>
+                    <label for="overOrderout"></label><input id="overOrderout" type="date" placeholder="请输入结束时间" style="height: 29px"/>
+                    <button class="btn btn-info btn-sm" onclick="OrderoutSearch()"><span class="glyphicon glyphicon-search">查询</span></button>
                 </a>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
@@ -68,8 +70,10 @@
                     <button class="btn btn-success btn-sm" id="saveOrderin" onclick="SelectwarenameinA()">增加入库信息</button>
                 </a>
                 <a style="margin-left: 560px;">
-                    <label for="queryorderin"></label><input id="queryorderin" type="search" placeholder="请输入查询信息" style="height: 29px"/>
-                    <button class="btn btn-info btn-sm">查询</button>
+                    <label for="startOrderin"></label><input id="startOrderin" type="date" placeholder="请输入开始时间" style="height: 29px"/>
+                    <span class="glyphicon glyphicon-minus"></span>
+                    <label for="overOrderin"></label><input id="overOrderin" type="date" placeholder="请输入结束时间" style="height: 29px"/>
+                    <button class="btn btn-info btn-sm" onclick="OrderinSearch()"><span class="glyphicon glyphicon-search">查询</span></button>
                 </a>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
@@ -121,9 +125,11 @@
                     <thead>
                     <tr>
                         <th>编号</th>
-                        <th>货物数量</th>
-                        <th>货物编号</th>
                         <th>出库单编号</th>
+                        <th>仓库名</th>
+                        <th>货物名</th>
+                        <th>货物明细</th>
+                        <th>货物数量</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -164,9 +170,10 @@
                     <thead>
                     <tr>
                         <th>编号</th>
+                        <th>入库单编号</th>
+                        <th>货物名</th>
+                        <th>货物明细</th>
                         <th>货物数量</th>
-                        <th>货物编号</th>
-                        <th>出库单编号</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -426,7 +433,7 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="Selectordersdinadd">选择出库单编号</label>
+                        <label for="Selectordersdinadd">选择入库单编号</label>
                         <select id="Selectordersdinadd" class="form-control">
                         </select>
                     </div>

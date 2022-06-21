@@ -5,6 +5,7 @@ import com.domain.GoodsDetails;
 import com.domain.Orders;
 import org.apache.ibatis.annotations.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface OrdersDao {
@@ -66,4 +67,24 @@ public interface OrdersDao {
     int getTotalOut();
     @Select("select * from orders where orders_type ='出库' and orders_status =0 limit #{start},#{size}")
     List<Orders> findByPageOut(@Param("start") int start, @Param("size") int size);
+
+    @Select("select count(*) from orders where orders_type ='入库' " +
+            "and orders_date between #{startTime} and #{overTime} " +
+            "and orders_status =0 ")
+    int getTotalSearchIn(@Param("startTime")Timestamp startTime, @Param("overTime")Timestamp overTime);
+    @Select("select * from orders where orders_type ='入库' " +
+            "and orders_date between #{startTime} and #{overTime} " +
+            "and orders_status =0 limit #{start},#{size}")
+    List<Orders> searchIn(@Param("startTime")Timestamp startTime, @Param("overTime")Timestamp overTime,
+                          @Param("start") int start, @Param("size") int size);
+
+    @Select("select count(*) from orders where orders_type ='出库' " +
+            "and orders_date between #{startTime} and #{overTime} " +
+            "and orders_status =0 ")
+    int getTotalSearchOut(@Param("startTime")Timestamp startTime, @Param("overTime")Timestamp overTime);
+    @Select("select * from orders where orders_type ='出库' " +
+            "and orders_date between #{startTime} and #{overTime} " +
+            "and orders_status =0 limit #{start},#{size}")
+    List<Orders> searchOut(@Param("startTime")Timestamp startTime, @Param("overTime")Timestamp overTime,
+                          @Param("start") int start, @Param("size") int size);
 }

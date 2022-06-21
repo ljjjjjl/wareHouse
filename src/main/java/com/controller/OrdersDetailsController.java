@@ -161,4 +161,11 @@ public class OrdersDetailsController {
         String msg = pages!=null ?"":"数据查询失败！";
         return new Result(code,pages,msg);
     }
+    @PostMapping("/info")
+    public Result findAll(@RequestBody PageInfo pageInfo) {
+        PageInfo<OrdersDetails> pages =ordersDetailsService.findAll(pageInfo.getInfo(),pageInfo.getCurrentPage());
+        Integer code = pages!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = pages!=null ?"":"数据查询失败！";
+        return new Result(code,pages,msg);
+    }
 }

@@ -70,4 +70,10 @@ public interface OrdersDetailsService {
      */
     public PageInfo<OrdersDetails> findByPage(int others_id, int currentPage);
 
+    /**
+     * 获得列表页面的分页信息
+     * @return
+     */
+    public PageInfo<OrdersDetails> findAll(String info, int currentPage);
+
 }

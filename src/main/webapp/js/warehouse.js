@@ -84,6 +84,39 @@ function RepositoryView(p){
 }
 
 
+function RepositoryAdd(){
+    const name = $("#repositoryadd").val();
+    if (name === ""){
+        alert("仓库名不能为空")
+    }else {
+        $.ajax({
+            type:"POST",
+            url:"/warehouse",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            data:JSON.stringify({
+                "warehouse_name": name
+            }),
+            dataType:"json",
+            async: false,
+            success:function (result) {
+                const obj = typeof result == 'string' ? JSON.parse(result) : result;
+                if (obj.code === 20011) {
+                    alert(obj.msg);
+                    // $('#saveUserModel').modal('hide');
+                    SelectRepositorylists();
+                }
+                else{
+                    alert(obj.msg);
+                }
+            },
+            error:function (){
+                alert("系统繁忙，请重试！！！");
+            }
+        })
+    }
+}
 //仓库明细管理
 function SelectWarehouselists(id){
 

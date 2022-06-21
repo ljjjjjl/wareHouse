@@ -89,6 +89,9 @@ public class GoodsServiceImpl implements GoodsService {
         }
 
         int start = (pageInfo.getCurrentPage()-1)*pageInfo.getSize();
+        if(totalCount ==0){
+            start =0;
+        }
         //查询当前页面下所有的用户信息
         List<Goods> list = goodsDao.findByPage(start,pageInfo.getSize());
 
@@ -120,6 +123,9 @@ public class GoodsServiceImpl implements GoodsService {
         }
 
         int start = (pageInfo.getCurrentPage()-1)*pageInfo.getSize();
+        if(totalCount ==0){
+            start =0;
+        }
         //查询当前页面下所有的用户信息
         List<Goods> list = goodsDao.search(info,start,pageInfo.getSize());
 

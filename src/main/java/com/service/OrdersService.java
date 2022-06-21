@@ -3,9 +3,11 @@ package com.service;
 import com.domain.Goods;
 import com.domain.Orders;
 import com.domain.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Transactional
@@ -68,4 +70,16 @@ public interface OrdersService {
      * @return
      */
     public PageInfo<Orders> findByPageOut(int currentPage);
+
+    /**
+     * 根据时间查询
+     * @return
+     */
+    public PageInfo<Orders> searchIn(PageInfo pageInfo);
+
+    /**
+     * 根据时间查询
+     * @return
+     */
+    public PageInfo<Orders> searchOut(PageInfo pageInfo);
 }

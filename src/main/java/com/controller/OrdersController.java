@@ -2,10 +2,7 @@ package com.controller;
 
 import com.controller.result.Code;
 import com.controller.result.Result;
-import com.domain.Goods;
-import com.domain.Orders;
-import com.domain.PageInfo;
-import com.domain.User;
+import com.domain.*;
 import com.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -72,7 +69,7 @@ public class OrdersController {
 //        System.out.println(id);
         Integer code = orders!=null ? Code.GET_OK:Code.GET_ERR;
         String msg = orders!=null ?"":"数据查询失败！";
-        System.out.println(orders);
+//        System.out.println(orders);
         return new Result(code,orders,msg);
     }
 
@@ -105,5 +102,20 @@ public class OrdersController {
         Integer code = pages!=null ? Code.GET_OK:Code.GET_ERR;
         String msg = pages!=null ?"":"数据查询失败！";
         return new Result(code,pages,msg);
+    }
+
+    @PostMapping("/info/in")
+    public Result searchIn(@RequestBody PageInfo pageInfo){
+        PageInfo<Orders> infos = ordersService.searchIn(pageInfo);
+        Integer code = infos!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = infos!=null ?"数据查询成功":"数据查询失败！";
+        return new Result(code,infos,msg);
+    }
+    @PostMapping("/info/out")
+    public Result searchOut(@RequestBody PageInfo pageInfo){
+        PageInfo<Orders> infos = ordersService.searchOut(pageInfo);
+        Integer code = infos!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = infos!=null ?"数据查询成功":"数据查询失败！";
+        return new Result(code,infos,msg);
     }
 }

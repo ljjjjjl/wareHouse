@@ -26,14 +26,14 @@ public class GoodsDetailsController {
         if (!flag){
             boolean judge = goodsDetailsService.save(goodsDetails);
             if (!judge){
-                msg = "新增货单明细失败";
+                msg = "新增货品明细失败";
                 code = Code.SAVE_ERR;
             }else {
-                msg = "新增货单明细成功";
+                msg = "新增货品明细成功";
                 code = Code.SAVE_OK;
             }
         }else{
-            msg = "货单明细已存在，请重试";
+            msg = "货品明细已存在，请重试";
             code = Code.SAVE_ERR;
         }
         return new Result(code,flag,msg);
@@ -48,14 +48,14 @@ public class GoodsDetailsController {
         if (!flag){
             boolean judge = goodsDetailsService.update(goodsDetails);
             if (!judge){
-                msg = "修改货单明细失败";
+                msg = "修改货品明细失败";
                 code = Code.UPDATE_ERR;
             }else {
-                msg = "修改货单明细成功";
+                msg = "修改货品明细成功";
                 code = Code.UPDATE_OK;
             }
         }else{
-            msg = "货单明细已存在，请重试";
+            msg = "货品明细已存在，请重试";
             code = Code.UPDATE_ERR;
         }
         return new Result(code,flag,msg);

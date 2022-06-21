@@ -1,5 +1,6 @@
 package com.domain;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class PageInfo<T> {
@@ -11,6 +12,8 @@ public class PageInfo<T> {
 
     private String info;
     private int others_id;
+    private Timestamp start;
+    private Timestamp over;
 
 
 
@@ -91,6 +94,22 @@ public class PageInfo<T> {
 
     public void setOthers_id(int others_id) {
         this.others_id = others_id;
+    }
+
+    public Timestamp getStart() {
+        return start;
+    }
+
+    public void setStart(Timestamp start) {
+        this.start = start;
+    }
+
+    public Timestamp getOver() {
+        return over;
+    }
+
+    public void setOver(Timestamp over) {
+        this.over = over;
     }
 }
 

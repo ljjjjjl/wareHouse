@@ -38,6 +38,7 @@
     }
     function judge(){
         const id = $("#userpw").val();
+        const oldpw = $("#oldpassword").val();
         const password = $("#password").val();
         const newpw = $("#newpassword").val();
         if (password !== newpw) {
@@ -49,9 +50,15 @@
                 success:function (result){
                     var obj = typeof result=='string'?JSON.parse(result):result;
                     if(obj.code === 20041){
-                        ChangePW(obj.data);
+                        if(obj.data.user_password ===oldpw)
+                            ChangePW(obj.data);
+                        else{
+                            console.log(obj.data,oldpw)
+                            alert("密码输入错误");
+                        }
+
                     }else {
-                        alert();
+                        alert(obj.msg);
                     }
                 },
                 error:function (){

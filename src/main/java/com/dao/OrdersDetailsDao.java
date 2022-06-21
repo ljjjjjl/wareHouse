@@ -53,5 +53,17 @@ public interface OrdersDetailsDao {
     @Select("select count(*) from orders_details where orders_id =#{orders_id} and status =0")
     int getTotal(int orders_id);
     @Select("select * from orders_details where orders_id =#{orders_id} and status =0 limit #{start},#{size}")
-    List<OrdersDetails> findByPage(@Param("orders_id")int goods_id, @Param("start") int start, @Param("size") int size);
+    List<OrdersDetails> findByPage(@Param("orders_id")int orders_id, @Param("start") int start, @Param("size") int size);
+
+    @Select("SELECT count(*) " +
+            "FROM orders o,orders_details od " +
+            "WHERE o.orders_type =#{orders_type} AND od.status =0 AND o.id=od.orders_id " +
+            "ORDER BY od.id")
+    int getTotalAll(@Param("orders_type")String orders_type);
+    @Select("SELECT od.id,od.amount,od.goods_details_id,od.orders_id,od.status " +
+            "FROM orders o,orders_details od " +
+            "WHERE o.orders_type =#{orders_type} AND od.status =0 AND o.id=od.orders_id " +
+            "ORDER BY od.id "+
+            "limit #{start},#{size}")
+    List<OrdersDetails> findAll(@Param("orders_type")String orders_type, @Param("start") int start, @Param("size") int size);
 }

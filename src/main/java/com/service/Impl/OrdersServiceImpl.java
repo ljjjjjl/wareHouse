@@ -3,16 +3,14 @@ package com.service.Impl;
 import com.controller.result.Code;
 import com.controller.result.RandomString;
 import com.dao.OrdersDao;
-import com.domain.Goods;
-import com.domain.Orders;
-import com.domain.PageInfo;
-import com.domain.User;
+import com.domain.*;
 import com.exception.SqlException;
 import com.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -88,6 +86,9 @@ public class OrdersServiceImpl implements OrdersService {
         }
 
         int start = (pageInfo.getCurrentPage()-1)*pageInfo.getSize();
+        if(totalCount ==0){
+            start =0;
+        }
         //查询当前页面下所有的用户信息
         List<Orders> list = ordersDao.findByPageIn(start,pageInfo.getSize());
 
@@ -118,10 +119,85 @@ public class OrdersServiceImpl implements OrdersService {
         }
 
         int start = (pageInfo.getCurrentPage()-1)*pageInfo.getSize();
+        if(totalCount ==0){
+            start =0;
+        }
         //查询当前页面下所有的用户信息
         List<Orders> list = ordersDao.findByPageOut(start,pageInfo.getSize());
 
         pageInfo.setList(list);
         return pageInfo;
+    }
+
+    @Override
+    public PageInfo<Orders> searchIn(PageInfo pageInfo) {
+        PageInfo<Orders> infos = new PageInfo<>();
+        //获取每页的数据量
+        infos.setSize(5);
+
+        //获取总数据量
+        int totalCount = ordersDao.getTotalSearchIn(pageInfo.getStart(),pageInfo.getOver());//中断
+        infos.setTotalCount(totalCount);
+        //获取总页数
+        int totalPage = (int)Math.ceil(totalCount/(double)infos.getSize());
+        infos.setTotalPage(totalPage);
+
+        //判断当前页是否合理
+        if(pageInfo.getCurrentPage()<1){
+            infos.setCurrentPage(1);
+        }else if(pageInfo.getCurrentPage()>totalPage){
+            infos.setCurrentPage(totalPage);
+        }else {
+            infos.setCurrentPage(pageInfo.getCurrentPage());
+        }
+
+        int start = (infos.getCurrentPage()-1)*infos.getSize();
+        if(totalCount ==0){
+            start =0;
+        }
+        //查询当前页面下所有的用户信息
+        List<Orders> list = ordersDao.searchIn(pageInfo.getStart(),pageInfo.getOver(),start,infos.getSize());
+
+
+        infos.setList(list);
+        infos.setStart(pageInfo.getStart());
+        infos.setOver(pageInfo.getOver());
+        return infos;
+    }
+
+    @Override
+    public PageInfo<Orders> searchOut(PageInfo pageInfo) {
+        PageInfo<Orders> infos = new PageInfo<>();
+        //获取每页的数据量
+        infos.setSize(5);
+
+        //获取总数据量
+        int totalCount = ordersDao.getTotalSearchOut(pageInfo.getStart(),pageInfo.getOver());//中断
+        infos.setTotalCount(totalCount);
+        //获取总页数
+        int totalPage = (int)Math.ceil(totalCount/(double)infos.getSize());
+        infos.setTotalPage(totalPage);
+
+        //判断当前页是否合理
+        if(pageInfo.getCurrentPage()<1){
+            infos.setCurrentPage(1);
+        }else if(pageInfo.getCurrentPage()>totalPage){
+            infos.setCurrentPage(totalPage);
+        }else {
+            infos.setCurrentPage(pageInfo.getCurrentPage());
+        }
+
+        int start = (infos.getCurrentPage()-1)*infos.getSize();
+        if(totalCount ==0){
+            start =0;
+        }
+        //查询当前页面下所有的用户信息
+        List<Orders> list = ordersDao.searchOut(pageInfo.getStart(),pageInfo.getOver(),start,infos.getSize());
+
+
+        infos.setList(list);
+        infos.setStart(pageInfo.getStart());
+        infos.setOver(pageInfo.getOver());
+        return infos;
     }
 }

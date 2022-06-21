@@ -14,7 +14,7 @@
             <li role="presentation" ><a href="#userlist" aria-controls="user" role="tab" data-toggle="tab" id="user" onclick="SelectUserlist()">用户列表</a></li>
             <li role="presentation"><a href="#goodslist" aria-controls="goods" role="tab" data-toggle="tab" id="goods" onclick="SelectGoodslist()">货号列表</a></li>
             <li role="presentation" style="display: none" ><a href="#goodsdetaillist" aria-controls="goodsdetail" role="tab" data-toggle="tab" id="goodsdetail">货品明细列表</a></li>
-            <li role="presentation" style="display: none" ><a href="#warehousedetaillist" aria-controls="warehousedetail" role="tab" data-toggle="tab" id="warehousedetail">货品明细列表</a></li>
+            <li role="presentation" style="display: none" ><a href="#warehousedetaillist" aria-controls="warehousedetail" role="tab" data-toggle="tab" id="warehousedetail">仓库明细列表</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -110,29 +110,26 @@
                 <div style="margin-left: 400px">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" id="goodsDetailsPage">
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Previous">--%>
-<%--                                    <span aria-hidden="true">&laquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="active"><a href="#">1</a></li>--%>
-<%--                            <li><a href="#">2</a></li>--%>
-<%--                            <li><a href="#">3</a></li>--%>
-<%--                            <li><a href="#">4</a></li>--%>
-<%--                            <li><a href="#">5</a></li>--%>
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Next">--%>
-<%--                                    <span aria-hidden="true">&raquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Previous">--%>
+                            <%--                                    <span aria-hidden="true">&laquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li class="active"><a href="#">1</a></li>--%>
+                            <%--                            <li><a href="#">2</a></li>--%>
+                            <%--                            <li><a href="#">3</a></li>--%>
+                            <%--                            <li><a href="#">4</a></li>--%>
+                            <%--                            <li><a href="#">5</a></li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Next">--%>
+                            <%--                                    <span aria-hidden="true">&raquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
                         </ul>
                     </nav>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="warehousedetaillist">
-<%--                <a style="margin-left: 700px;">--%>
-<%--                    <button class="btn btn-info btn-sm" onclick="">显示全部</button>--%>
-<%--                </a>--%>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr><th>编号</th><th>仓库名</th><th>货品名</th><th>货品明细</th><th>货品数量</th></tr>
@@ -144,21 +141,21 @@
                 <div style="margin-left: 400px">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" id="warehouseDetailsPage">
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Previous">--%>
-<%--                                    <span aria-hidden="true">&laquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="active"><a href="#">1</a></li>--%>
-<%--                            <li><a href="#">2</a></li>--%>
-<%--                            <li><a href="#">3</a></li>--%>
-<%--                            <li><a href="#">4</a></li>--%>
-<%--                            <li><a href="#">5</a></li>--%>
-<%--                            <li>--%>
-<%--                                <a href="#" aria-label="Next">--%>
-<%--                                    <span aria-hidden="true">&raquo;</span>--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Previous">--%>
+                            <%--                                    <span aria-hidden="true">&laquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li class="active"><a href="#">1</a></li>--%>
+                            <%--                            <li><a href="#">2</a></li>--%>
+                            <%--                            <li><a href="#">3</a></li>--%>
+                            <%--                            <li><a href="#">4</a></li>--%>
+                            <%--                            <li><a href="#">5</a></li>--%>
+                            <%--                            <li>--%>
+                            <%--                                <a href="#" aria-label="Next">--%>
+                            <%--                                    <span aria-hidden="true">&raquo;</span>--%>
+                            <%--                                </a>--%>
+                            <%--                            </li>--%>
                         </ul>
                     </nav>
                 </div>
@@ -184,30 +181,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消新增</button>
-                        <button type="button" class="btn btn-primary">确认提交</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--修改仓库-->
-<div class="modal fade" id="updateRepositoryModel" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">修改仓库信息</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="updateRepositoryName">修改仓库名</label>
-                        <input type="text" class="form-control" id="updateRepositoryName" placeholder="仓库名">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消修改</button>
-                        <button type="button" class="btn btn-primary">确认提交</button>
+                        <button type="button" class="btn btn-primary" onclick="RepositoryAdd()">确认提交</button>
                     </div>
                 </form>
             </div>

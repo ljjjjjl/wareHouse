@@ -55,10 +55,10 @@ function Logout() {
         success: function (result) {
             var obj = typeof result == 'string' ? JSON.parse(result) : result;
             if (obj.code === 20071) {
-                alert(obj.data.user_name + obj.msg);
+                alert("用户"+obj.data + obj.msg);
                 window.location.href = "../pages/login.jsp";
             } else {
-                alert(obj.data + obj.msg);
+                alert("用户"+obj.data + obj.msg);
             }
         },
         error: function () {

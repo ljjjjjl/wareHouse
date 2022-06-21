@@ -90,6 +90,9 @@ public class UserServiceImpl implements UserService {
         }
 
         int start = (pageInfo.getCurrentPage()-1)*pageInfo.getSize();
+        if(totalCount ==0){
+            start =0;
+        }
         //查询当前页面下所有的用户信息
         List<User> list = userDao.findByPage(start,pageInfo.getSize());
 
@@ -121,6 +124,9 @@ public class UserServiceImpl implements UserService {
         }
 
         int start = (pageInfo.getCurrentPage()-1)*pageInfo.getSize();
+        if(totalCount ==0){
+            start =0;
+        }
         //查询当前页面下所有的用户信息
         List<User> list = userDao.search(info,start,pageInfo.getSize());
 
