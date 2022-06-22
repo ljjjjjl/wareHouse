@@ -74,6 +74,7 @@ function orderoutView(p) {
         $.ajax({
             type: "GET",
             url: "/user/" + orders.user_id,
+            async: false,
             success: function (result) {
                 var User = typeof result == 'string' ? JSON.parse(result) : result;
                 var user = User.data;
