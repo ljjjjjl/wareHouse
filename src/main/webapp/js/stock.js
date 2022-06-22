@@ -70,23 +70,43 @@ function ordersoutPageView(p){
 //显示出库
 function orderoutView(p) {
     $("#orderoutlists").empty();
-    for (i in p.list) {
-        var time = new Date(p.list[i].orders_date).Format("yyyy-MM-dd hh:mm:ss");
-        $("#orderoutlists").append("" +
-            "<tr>" +
-            // "<td>" + p.list[i].id +
-            // "</td>" +
-            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
-            "</td><td><a onclick='toorderoutdetail("+p.list[i].id+")'>" + p.list[i].orders_id +"</a>"+
-            "</td><td>" + p.list[i].orders_address +
-            "</td><td>" + time +
-            "</td><td>" + p.list[i].orders_note +
-            "</td><td>" + p.list[i].warehouse_id +
-            "</td><td>" + p.list[i].user_id +
-            "</td><td>" + "<a onclick='OrderoutDelete(" + p.list[i].id + ")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
-            "<a onclick='OrderoutEditModel(" + p.list[i].id + ")' data-toggle='modal' data-target='#updateOrderoutModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
-            "</td>" + "<tr>")
-    }
+    $.each(p.list,function (i,orders){
+        $.ajax({
+            type: "GET",
+            url: "/user/" + orders.user_id,
+            success: function (result) {
+                var User = typeof result == 'string' ? JSON.parse(result) : result;
+                var user = User.data;
+                if (User.code === 20041) {
+                    $.ajax({
+                        type:"GET",
+                        url:"/warehouse/"+orders.warehouse_id,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                        },
+                        dataType:"json",
+                        async: false,
+                        success:function (result){
+                            const obj = typeof result == 'string' ? JSON.parse(result) : result;
+                            if(obj.code === 20041){
+                                var time = new Date(orders.orders_date).Format("yyyy-MM-dd hh:mm:ss");
+                                $("#orderoutlists").append("<tr>" + "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
+                                    "</td><td><a onclick='toorderoutdetail("+orders.id+")'>" + orders.orders_id +"</a>"+
+                                    "</td><td>" + orders.orders_address +
+                                    "</td><td>" + time +
+                                    "</td><td>" + orders.orders_note +
+                                    "</td><td>" + obj.data +
+                                    "</td><td>" + user.user_name +
+                                    "</td><td>" + "<a onclick='OrderoutDelete(" + orders.id + ")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
+                                    "<a onclick='OrderoutEditModel(" + orders.id + ")' data-toggle='modal' data-target='#updateOrderoutModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
+                                    "</td>" + "<tr>")
+                            }
+                        },
+                    });
+                }
+            }
+        })
+    })
 }
 
 //出库删除
@@ -168,7 +188,7 @@ function OrderoutEditModel(id) {
                 $("#Orderoutidupdate").val(orders.orders_id);
                 $("#Orderoutaddressupdate").val(orders.orders_address);
                 $("#Orderoutnoteupdate").val(orders.orders_note);
-                SelectwarenameoutU(orders.warehouse_id);
+                // SelectwarenameoutU(orders.warehouse_id);
             }
         }
     })
@@ -440,23 +460,44 @@ function ordersinPageView(p){
 //入库显示
 function orderinView(p) {
     $("#orderinlists").empty();
-    for (i in p.list) {
-        var time = new Date(p.list[i].orders_date).Format("yyyy-MM-dd hh:mm:ss");
-        $("#orderinlists").append("" +
-            "<tr>" +
-            // "<td>" + p.list[i].id +
-            // "</td>" +
-            "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1) +
-            "</td><td><a onclick='toorderindetail("+p.list[i].id+")'>" + p.list[i].orders_id +"</a>"+
-            "</td><td>" + p.list[i].orders_address +
-            "</td><td>" + time +
-            "</td><td>" + p.list[i].orders_note +
-            "</td><td>" + p.list[i].warehouse_id +
-            "</td><td>" + p.list[i].user_id +
-            "</td><td>" + "<a onclick='OrderinDelete(" + p.list[i].id + ")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
-            "<a onclick='OrderinEditModel(" + p.list[i].id + ")' data-toggle='modal' data-target='#updateOrderinModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
-            "</td>" + "<tr>");
-    }
+    $.each(p.list,function (i,orders){
+        $.ajax({
+            type: "GET",
+            url: "/user/" + orders.user_id,
+            async: false,
+            success: function (result) {
+                var User = typeof result == 'string' ? JSON.parse(result) : result;
+                var user = User.data;
+                if (User.code === 20041) {
+                    $.ajax({
+                        type:"GET",
+                        url:"/warehouse/"+orders.warehouse_id,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                        },
+                        dataType:"json",
+                        async: false,
+                        success:function (result){
+                            const obj = typeof result == 'string' ? JSON.parse(result) : result;
+                            if(obj.code === 20041){
+                                var time = new Date(orders.orders_date).Format("yyyy-MM-dd hh:mm:ss");
+                                $("#orderinlists").append("<tr>" + "<td>" + (Number(p.size)*Number(p.currentPage-1) +Number(i)+1)+
+                                    "</td><td><a onclick='toorderindetail("+orders.id+")'>" + orders.orders_id +"</a>"+
+                                    "</td><td>" + orders.orders_address +
+                                    "</td><td>" + time +
+                                    "</td><td>" + orders.orders_note +
+                                    "</td><td>" + obj.data +
+                                    "</td><td>" + user.user_name +
+                                    "</td><td>" + "<a onclick='OrderinDelete(" + orders.id + ")'><button class='btn btn-danger btn-sm'>删除</button></a>" +
+                                    "<a onclick='OrderinEditModel(" + orders.id + ")' data-toggle='modal' data-target='#updateOrderinModel'><button class='btn btn-warning btn-sm'>修改</button></a>" +
+                                    "</td>" + "<tr>")
+                            }
+                        },
+                    });
+                }
+            }
+        })
+    })
 }
 
 //入库删除
@@ -537,7 +578,7 @@ function OrderinEditModel(id) {
                 $("#Orderinidupdate").val(orders.orders_id);
                 $("#Orderinaddressupdate").val(orders.orders_address);
                 $("#Orderinnoteupdate").val(orders.orders_note);
-                SelectwarenameinU(orders.warehouse_id);
+                // SelectwarenameinU(orders.warehouse_id);
             }
         }
     })
@@ -726,6 +767,7 @@ function toorderoutdetail(id){
 
 //获取出库明细列表
 function SelectOrderOutDetail(orders_id){
+    $("#orderaddoutid").val(orders_id);
     if(orders_id !== null){
         $.ajax({
             type:"POST",
@@ -782,6 +824,7 @@ function SelectOrderOutDetail(orders_id){
     }
 }
 function SelectOrderOutDetailByPage(orders_id,page){
+    $("#orderaddoutid").val(orders_id);
     if(orders_id !== null){
         $.ajax({
             type:"POST",
@@ -991,7 +1034,7 @@ function orderoutdetailEdit(){
                 alert("修改成功");
                 SelectOrderOutDetail(orderid);
             } else {
-                alert("修改失败");
+                alert(obj.msg);
             }
         },
         error: function () {
@@ -1004,11 +1047,17 @@ function orderoutdetailEdit(){
 
 //出库明细增加
 function orderoutdetailAdd(){
-    var ordersid = $("#Selectordersdoutadd").val();
+    var ordersid = $("#orderaddoutid").val();
     var goodsdetail = $("#Selectgoodsorderoutadd").val();
     var amount = $("#Orderoutdacountsave").val();
+
     if (amount === "" || goodsdetail === "" || ordersid === ""){
-        alert("不能为空")
+        if (ordersid === ""){
+            alert("显示全部时不能增加明细信息")
+        }else{
+            alert("不能为空")
+        }
+
     }else {
         $.ajax({
             type:"POST",
@@ -1044,58 +1093,36 @@ function orderoutdetailAdd(){
 function SelectgoodsOrderoutadd(){
     $.ajax({
         type:"GET",
-        url:"/goods",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-        },
-        dataType:"json",
+        url:"/goods_details",
         async: false,
         success:function (result){
             var obj = typeof result=='string'?JSON.parse(result):result;
+            goodsdetail = obj.data
             if(obj.code === 20041){
-                console.log(obj.data);
                 $("#Selectgoodsorderoutadd").empty();
-                $.each(obj.data,function (i,goods){
-                    $("#Selectgoodsorderoutadd").append("<option value='" + goods.id + "'>"+ goods.id+"</option>");
+                $.each(obj.data,function (i,goodsdetails){
+                    $.ajax({
+                        type:"GET",
+                        url:"/goods/"+goodsdetails.goods_id,
+                        async: false,
+                        success:function (result){
+                            var goods = typeof result=='string'?JSON.parse(result):result;
+                            var Goods = goods.data
+                            if(goods.code === 20041){
+                                $("#Selectgoodsorderoutadd").append("<option value='" + goodsdetails.id + "'>"
+                                    + goodsdetails.id+","
+                                    + Goods.goods_name+","
+                                    + goodsdetails.goods_color+","
+                                    +goodsdetails.goods_size+"" +
+                                    "</option>")
+                            }
+                        }
+                    });
                 });
-            }else {
-                alert(obj.msg);
             }
-        },
-        error:function(){
-            alert("系统繁忙，请重试！！！");
         }
     });
 }
-//出库查询出库单号
-function SelectOrderidoutadd(){
-    $.ajax({
-        type:"GET",
-        url:"/orders/out",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-        },
-        dataType:"json",
-        async: false,
-        success:function (result){
-            var obj = typeof result=='string'?JSON.parse(result):result;
-            if(obj.code === 20041){
-                console.log(obj.data);
-                $("#Selectordersdoutadd").empty();
-                $.each(obj.data,function (i,goods){
-                    $("#Selectordersdoutadd").append("<option value='" + goods.id + "'>"+ goods.id+"</option>");
-                });
-                SelectgoodsOrderoutadd();
-            }else {
-                alert(obj.msg);
-            }
-        },
-        error:function(){
-            alert("系统繁忙，请重试！！！");
-        }
-    });
-}
-
 //入库明细管理
 //跳转入库明细
 function toorderindetail(id){
@@ -1105,6 +1132,7 @@ function toorderindetail(id){
 
 //获取入库明细列表
 function SelectOrderInDetail(orders_id){
+    $("#orderaddinid").val(orders_id);
     if(orders_id!=null){
         $.ajax({
             type:"POST",
@@ -1160,6 +1188,7 @@ function SelectOrderInDetail(orders_id){
     }
 }
 function SelectOrderInDetailByPage(orders_id,page){
+    $("#orderaddinid").val(orders_id);
     if(orders_id !== null){
         $.ajax({
             type:"POST",
@@ -1331,11 +1360,15 @@ function orderindetailDelete(id){
 
 //入库明细增加
 function orderindetailAdd(){
-    var ordersid = $("#Selectordersdinadd").val();
+    var ordersid = $("#orderaddinid").val();
     var goodsdetail = $("#Selectgoodsorderinadd").val();
     var amount = $("#Orderindacountsave").val();
     if (amount === "" || goodsdetail === "" || ordersid === ""){
-        alert("不能为空")
+        if (ordersid === ""){
+            alert("显示全部时不能增加明细信息")
+        }else{
+            alert("不能为空")
+        }
     }else {
         $.ajax({
             type:"POST",
@@ -1371,58 +1404,36 @@ function orderindetailAdd(){
 function SelectgoodsOrderinadd(){
     $.ajax({
         type:"GET",
-        url:"/goods",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-        },
-        dataType:"json",
+        url:"/goods_details",
         async: false,
         success:function (result){
             var obj = typeof result=='string'?JSON.parse(result):result;
+            goodsdetail = obj.data
             if(obj.code === 20041){
-                console.log(obj.data);
                 $("#Selectgoodsorderinadd").empty();
-                $.each(obj.data,function (i,goods){
-                    $("#Selectgoodsorderinadd").append("<option value='" + goods.id + "'>"+ goods.id+"</option>");
+                $.each(obj.data,function (i,goodsdetails){
+                    $.ajax({
+                        type:"GET",
+                        url:"/goods/"+goodsdetails.goods_id,
+                        async: false,
+                        success:function (result){
+                            var goods = typeof result=='string'?JSON.parse(result):result;
+                            var Goods = goods.data
+                            if(goods.code === 20041){
+                                $("#Selectgoodsorderinadd").append("<option value='" + goodsdetails.id + "'>"
+                                    + goodsdetails.id+","
+                                    + Goods.goods_name+","
+                                    + goodsdetails.goods_color+","
+                                    +goodsdetails.goods_size+"" +
+                                    "</option>")
+                            }
+                        }
+                    });
                 });
-            }else {
-                alert(obj.msg);
             }
-        },
-        error:function(){
-            alert("系统繁忙，请重试！！！");
         }
     });
 }
-//入库查询入库单号
-function SelectOrderidinadd(){
-    $.ajax({
-        type:"GET",
-        url:"/orders/in",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-        },
-        dataType:"json",
-        async: false,
-        success:function (result){
-            var obj = typeof result=='string'?JSON.parse(result):result;
-            if(obj.code === 20041){
-                console.log(obj.data);
-                $("#Selectordersdinadd").empty();
-                $.each(obj.data,function (i,goods){
-                    $("#Selectordersdinadd").append("<option value='" + goods.id + "'>"+ goods.id+"</option>");
-                });
-                SelectgoodsOrderinadd();
-            }else {
-                alert(obj.msg);
-            }
-        },
-        error:function(){
-            alert("系统繁忙，请重试！！！");
-        }
-    });
-}
-
 //入库明细修改
 function orderindetailEditModel(id){
     $.ajax({
@@ -1463,7 +1474,7 @@ function orderindetailEdit(){
                 alert("修改成功");
                 SelectOrderInDetail(orderid);
             } else {
-                alert("修改失败");
+                alert(obj.msg);
             }
         },
         error: function () {

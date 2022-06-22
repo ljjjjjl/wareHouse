@@ -312,6 +312,7 @@
             </div>
             <div class="modal-body">
                 <form>
+                    <input type="hidden" class="form-control" name="addgoodsid" id="addgoodsid"/>
                     <div class="form-group">
                         <label for="SelectGoodsName">选择货品名称</label>
                         <select id="SelectGoodsName" class="form-control">

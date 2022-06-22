@@ -18,6 +18,10 @@ public class WarehouseDetailsController {
     @Autowired
     WarehouseDetailsService warehouseDetailsService;
 
+    /**
+     *
+     * 查询所有库存
+     */
     @GetMapping("/{warehouse_id}")
     public Result getAll(@PathVariable Integer warehouse_id) {
         List<WarehouseDetails> list =warehouseDetailsService.getAll(warehouse_id);
@@ -26,6 +30,10 @@ public class WarehouseDetailsController {
         return new Result(code,list,msg);
     }
 
+    /**
+     *
+     * 分页
+     */
     @PostMapping("/page")
     public Result findByPage(@RequestBody PageInfo pageInfo) {
         PageInfo<WarehouseDetails> pages =warehouseDetailsService.findByPage(pageInfo.getOthers_id(),pageInfo.getCurrentPage());

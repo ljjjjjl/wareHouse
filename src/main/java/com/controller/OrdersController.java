@@ -19,6 +19,10 @@ public class OrdersController {
     @Autowired
     HttpServletRequest request;
 
+    /**
+     *
+     * 添加货单
+     */
     @PostMapping
     public Result save(@RequestBody Orders orders) {
         Integer code = Code.SYSTEM_UNKNOW_ERR;
@@ -41,19 +45,30 @@ public class OrdersController {
         return new Result(code,u,msg);
     }
 
+    /**
+     *
+     * 更新货单
+     */
     @PutMapping
     public Result update(@RequestBody Orders orders) {
         boolean flag =ordersService.update(orders);
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
 
-
+    /**
+     *
+     * 删除货单
+     */
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         boolean flag =ordersService.delete(id);
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
 
+    /**
+     *
+     * 模糊查询
+     */
     @PostMapping ("/find")
     public Result find(@RequestBody Orders orders) {
         List<Orders> list =ordersService.find(orders);
@@ -63,6 +78,10 @@ public class OrdersController {
         return new Result(code,list,msg);
     }
 
+    /**
+     *
+     * 通过id查找货单
+     */
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) {
         Orders orders = ordersService.getById(id);
@@ -73,6 +92,10 @@ public class OrdersController {
         return new Result(code,orders,msg);
     }
 
+    /**
+     *
+     * 查询所有入货单
+     */
     @GetMapping("/in")
     public Result getAllIn() {
         List<Orders> list =ordersService.getAllIn();
@@ -80,6 +103,10 @@ public class OrdersController {
         String msg = list!=null ?"":"数据查询失败！";
         return new Result(code,list,msg);
     }
+    /**
+     *
+     * 查询所有入货单
+     */
     @GetMapping("/out")
     public Result getAllOut() {
         List<Orders> list =ordersService.getAllOut();
@@ -88,6 +115,10 @@ public class OrdersController {
         return new Result(code,list,msg);
     }
 
+    /**
+     *
+     * 分页（入库）
+     */
     @PostMapping("/page/in")
     public Result findByPageIn(@RequestBody PageInfo pageInfo) {
         PageInfo<Orders> pages =ordersService.findByPageIn(pageInfo.getCurrentPage());
@@ -96,6 +127,10 @@ public class OrdersController {
         return new Result(code,pages,msg);
     }
 
+    /**
+     *
+     * 分页（出库）
+     */
     @PostMapping("/page/out")
     public Result findByPageOut(@RequestBody PageInfo pageInfo) {
         PageInfo<Orders> pages =ordersService.findByPageOut(pageInfo.getCurrentPage());
@@ -104,6 +139,10 @@ public class OrdersController {
         return new Result(code,pages,msg);
     }
 
+    /**
+     *
+     * 查询的分页（入库）
+     */
     @PostMapping("/info/in")
     public Result searchIn(@RequestBody PageInfo pageInfo){
         PageInfo<Orders> infos = ordersService.searchIn(pageInfo);
@@ -111,6 +150,10 @@ public class OrdersController {
         String msg = infos!=null ?"数据查询成功":"数据查询失败！";
         return new Result(code,infos,msg);
     }
+    /**
+     *
+     * 查询的分页（出库）
+     */
     @PostMapping("/info/out")
     public Result searchOut(@RequestBody PageInfo pageInfo){
         PageInfo<Orders> infos = ordersService.searchOut(pageInfo);

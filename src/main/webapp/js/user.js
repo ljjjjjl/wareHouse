@@ -172,7 +172,7 @@ function userEdit(){
                 SelectUserlist();
             }
             else{
-                alert("用户信息修改失败");
+                alert(obj.msg);
             }
         },
         error:function (){

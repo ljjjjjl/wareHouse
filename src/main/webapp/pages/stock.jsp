@@ -35,7 +35,7 @@
                         <th>地址</th>
                         <th>创建时间</th>
                         <th>货单备注</th>
-                        <th>仓库编号</th>
+                        <th>仓库名</th>
                         <th>经办人</th>
                         <th>操作</th>
                     </tr>
@@ -83,7 +83,7 @@
                         <th>地址</th>
                         <th>创建时间</th>
                         <th>货单备注</th>
-                        <th>仓库编号</th>
+                        <th>仓库名</th>
                         <th>经办人</th>
                         <th>操作</th>
                     </tr>
@@ -115,8 +115,9 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="orderoutdetaillist">
+                <input type="hidden" class="form-control" name="orderaddoutid" id="orderaddoutid">
                 <a data-toggle="modal" data-target="#saveOrderoutdetailModel">
-                    <button class="btn btn-success btn-sm" onclick="SelectOrderidoutadd()">增加出库明细信息</button>
+                    <button class="btn btn-success btn-sm" onclick="SelectgoodsOrderoutadd()">增加出库明细信息</button>
                 </a>
                 <a style="margin-left: 560px;">
                     <button class="btn btn-info btn-sm" onclick="SelectOrderOutDetail(null)">显示全部</button>
@@ -160,8 +161,9 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="orderindetaillist">
+                <input type="hidden" class="form-control" name="orderaddinid" id="orderaddinid">
                 <a data-toggle="modal" data-target="#saveOrderindetailModel">
-                    <button class="btn btn-success btn-sm" onclick="SelectOrderidinadd()">增加入库明细信息</button>
+                    <button class="btn btn-success btn-sm" onclick="SelectgoodsOrderinadd()">增加入库明细信息</button>
                 </a>
                 <a style="margin-left: 560px;">
                     <button class="btn btn-info btn-sm" onclick="SelectOrderInDetail(null)">显示全部</button>
@@ -170,7 +172,8 @@
                     <thead>
                     <tr>
                         <th>编号</th>
-                        <th>入库单编号</th>
+                        <th>出库单编号</th>
+                        <th>仓库名</th>
                         <th>货物名</th>
                         <th>货物明细</th>
                         <th>货物数量</th>
@@ -267,11 +270,11 @@
                         <label for="Orderoutnoteupdate">修改备注</label>
                         <input type="text" class="form-control" id="Orderoutnoteupdate" placeholder="备注">
                     </div>
-                    <div class="form-group">
-                        <label for="Selectwarhouseup">修改仓库名称</label>
-                        <select id="Selectwarhouseup" class="form-control">
-                        </select>
-                    </div>
+<%--                    <div class="form-group">--%>
+<%--                        <label for="Selectwarhouseup">修改仓库名称</label>--%>
+<%--                        <select id="Selectwarhouseup" class="form-control">--%>
+<%--                        </select>--%>
+<%--                    </div>--%>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消修改</button>
                         <button type="button" class="btn btn-primary" onclick="OrderoutEdit()">确认提交</button>
@@ -340,11 +343,11 @@
                         <label for="Orderinnoteupdate">修改备注</label>
                         <input type="text" class="form-control" id="Orderinnoteupdate" placeholder="备注">
                     </div>
-                    <div class="form-group">
-                        <label for="Selectwarhouseupin">修改仓库名称</label>
-                        <select id="Selectwarhouseupin" class="form-control">
-                        </select>
-                    </div>
+<%--                    <div class="form-group">--%>
+<%--                        <label for="Selectwarhouseupin">修改仓库名称</label>--%>
+<%--                        <select id="Selectwarhouseupin" class="form-control">--%>
+<%--                        </select>--%>
+<%--                    </div>--%>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消修改</button>
                         <button type="button" class="btn btn-primary" onclick="OrderinEdit()">确认提交</button>
@@ -364,11 +367,11 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="Selectordersdoutadd">选择出库单编号</label>
-                        <select id="Selectordersdoutadd" class="form-control">
-                        </select>
-                    </div>
+                    <%--                    <div class="form-group">--%>
+                    <%--                        <label for="Selectordersdoutadd">选择出库单编号</label>--%>
+                    <%--                        <select id="Selectordersdoutadd" class="form-control">--%>
+                    <%--                        </select>--%>
+                    <%--                    </div>--%>
                     <div class="form-group">
                         <label for="Selectgoodsorderoutadd">选择货物明细编号</label>
                         <select id="Selectgoodsorderoutadd" class="form-control">
@@ -432,11 +435,11 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="Selectordersdinadd">选择入库单编号</label>
-                        <select id="Selectordersdinadd" class="form-control">
-                        </select>
-                    </div>
+                    <%--                    <div class="form-group">--%>
+                    <%--                        <label for="Selectordersdinadd">选择入库单编号</label>--%>
+                    <%--                        <select id="Selectordersdinadd" class="form-control">--%>
+                    <%--                        </select>--%>
+                    <%--                    </div>--%>
                     <div class="form-group">
                         <label for="Selectgoodsorderinadd">选择货物明细编号</label>
                         <select id="Selectgoodsorderinadd" class="form-control">

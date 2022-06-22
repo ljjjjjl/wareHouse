@@ -18,6 +18,10 @@ public class WarehousreController {
     @Autowired
     private WarehouseService warehouseService;
 
+    /**
+     *
+     * 查询所有仓库
+     */
     @GetMapping
     public Result getAll() {
         List<Warehouse> list =warehouseService.getAll();
@@ -25,6 +29,11 @@ public class WarehousreController {
         String msg = list!=null ?"仓库数据查询成功":"仓库数据查询失败！";
         return new Result(code,list,msg);
     }
+
+    /**
+     *
+     * 通过仓库id查仓库名
+     */
     @GetMapping("/{id}")
     public Result getnamebyid(@PathVariable Integer id) {
         String name =warehouseService.getnameByid(id);
@@ -33,6 +42,10 @@ public class WarehousreController {
         return new Result(code,name,msg);
     }
 
+    /**
+     *
+     * 分页
+     */
     @PostMapping("/page")
     public Result findByPage(@RequestBody PageInfo pageInfo) {
         PageInfo<Warehouse> pages =warehouseService.findByPage(pageInfo.getCurrentPage());
@@ -41,6 +54,10 @@ public class WarehousreController {
         return new Result(code,pages,msg);
     }
 
+    /**
+     *
+     * 添加仓库
+     */
     @PostMapping
     public Result save(@RequestBody Warehouse warehouse) {
         boolean flag =warehouseService.save(warehouse);

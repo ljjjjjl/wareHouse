@@ -21,10 +21,15 @@ public interface OrdersDao {
     @Select("select max(id) from orders")
     public int maxId();
 
+    @Update("update orders set " +
+            "orders_id =#{orders_id}" +
+            "where id =#{id}")
+    public int afterUpdate (Orders orders);
+
 
     @Update("update orders set " +
-            "orders_id =#{orders_id},orders_address =#{orders_address} ," +
-            "orders_note =#{orders_note},warehouse_id =#{warehouse_id} " +
+            "orders_address =#{orders_address} ," +
+            "orders_note =#{orders_note} " +
             "where id =#{id}")
     public int update(Orders orders);
 

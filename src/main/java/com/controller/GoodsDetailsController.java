@@ -18,6 +18,10 @@ public class GoodsDetailsController {
     @Autowired
     private GoodsDetailsService goodsDetailsService;
 
+    /**
+     *
+     * 添加货品明细
+     */
     @PostMapping
     public Result save(@RequestBody GoodsDetails goodsDetails) {
         boolean flag =goodsDetailsService.UNIQUE(goodsDetails);
@@ -39,6 +43,10 @@ public class GoodsDetailsController {
         return new Result(code,flag,msg);
     }
 
+    /**
+     *
+     * 修改货品明细
+     */
     @PutMapping
     public Result update(@RequestBody GoodsDetails goodsDetails) {
         boolean flag =goodsDetailsService.UNIQUE(goodsDetails);
@@ -61,12 +69,20 @@ public class GoodsDetailsController {
         return new Result(code,flag,msg);
     }
 
+    /**
+     *
+     * 删除货品明细
+     */
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         boolean flag =goodsDetailsService.delete(id);
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
 
+    /**
+     *
+     * 模糊查询（未分页）
+     */
     @PostMapping ("/find")
     public Result find(@RequestBody GoodsDetails goodsDetails) {
         List<GoodsDetails> list =goodsDetailsService.find(goodsDetails);
@@ -75,6 +91,10 @@ public class GoodsDetailsController {
         return new Result(code,list,msg);
     }
 
+    /**
+     *
+     * 查询该货品所有明细（未分页）
+     */
     @GetMapping("/{goods_id}")
     public Result getAll(@PathVariable Integer goods_id) {
         List<GoodsDetails> list =goodsDetailsService.getAll(goods_id);
@@ -83,6 +103,10 @@ public class GoodsDetailsController {
         return new Result(code,list,msg);
     }
 
+    /**
+     *
+     * 查询所有货品明细（未分页）
+     */
     @GetMapping
     public Result getAllGoodsdetail() {
         List<GoodsDetails> list =goodsDetailsService.getAllGoodsdetail();
@@ -91,6 +115,10 @@ public class GoodsDetailsController {
         return new Result(code,list,msg);
     }
 
+    /**
+     *
+     * 通过id查找货品明细
+     */
     @PatchMapping("/{id}")
     public Result getbyid(@PathVariable Integer id) {
         GoodsDetails list =goodsDetailsService.getbyid(id);
@@ -100,7 +128,10 @@ public class GoodsDetailsController {
     }
 
 
-
+    /**
+     *
+     * 分页
+     */
     @PostMapping("/page")
     public Result findByPage(@RequestBody PageInfo pageInfo) {
         PageInfo<GoodsDetails> pages =goodsDetailsService.findByPage(pageInfo.getOthers_id(),pageInfo.getCurrentPage());
@@ -109,6 +140,10 @@ public class GoodsDetailsController {
         return new Result(code,pages,msg);
     }
 
+    /**
+     *
+     * 查询的分页
+     */
     @PostMapping("/info")
     public Result search(@RequestBody PageInfo pageInfo){
         PageInfo<GoodsDetails> infos = goodsDetailsService.search(pageInfo.getCurrentPage());

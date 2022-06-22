@@ -88,10 +88,9 @@ function goodsView(p){
 }
 // 货号新增
 function goodsAdd(){
-    var id = $("#saveGoodsNo").val();
     var name = $("#saveGoodsName").val();
-    if (id === "" || name === ""){
-        alert("账户或用户名不能为空")
+    if (name === ""){
+        alert("商品名不能为空")
     }else {
         $.ajax({
             type:"POST",
@@ -100,7 +99,7 @@ function goodsAdd(){
                 'Content-Type': 'application/json;charset=utf-8',
             },
             data:JSON.stringify({
-                "goods_id": id,
+                // "goods_id": id,
                 "goods_name": name
             }),
             dataType:"json",
@@ -124,7 +123,6 @@ function goodsAdd(){
 }
 // 货号修改
 function goodsEditModel(id){
-    console.log(id)
     //根据id查询一个人信息
     $.ajax({
         type:"GET",
@@ -284,11 +282,12 @@ function infoGoodsPageView(p){
     }
     $("#goodsPage").append("<li> <a onclick='goodsSearchByPage("+(Number(p.currentPage)+1)+")' aria-label='Next'><span aria-hidden=\"true\">&raquo;</span></a></li>")
 
-    goodsView(p.list)
+    goodsView(p)
 }
 
 //货号明细
 function SelectGoodsDetail(goods_id){
+    $("#addgoodsid").val(goods_id);
     if(goods_id !== null){
         $.ajax({
             type:"POST",
@@ -343,6 +342,7 @@ function SelectGoodsDetail(goods_id){
     }
 }
 function SelectGoodsDetailByPage(goods_id,page){
+    $("#addgoodsid").val(goods_id);
     if(goods_id !== null){
         $.ajax({
             type:"POST",
@@ -433,7 +433,6 @@ function goodsdetailView(p){
 
 function goodsdetailAdd(){
     var id = $("#SelectGoodsName").val();
-    console.log(id);
     var color = $("#saveGoodsDetailColor").val();
     var size = $("#saveGoodsDetailSize").val();
     if (color === "" || size === ""){
@@ -558,10 +557,15 @@ function Selectgoodsname(){
         success:function (result){
             var obj = typeof result=='string'?JSON.parse(result):result;
             if(obj.code === 20041){
-                console.log(obj.data);
+                var goodsid=$("#addgoodsid").val();
                 $("#SelectGoodsName").empty();
                 $.each(obj.data,function (i,goods){
-                    $("#SelectGoodsName").append("<option value='" + goods.id + "'>"+ goods.goods_name+"</option>");
+                    // console.log(goods.id);
+                    if(goods.id === Number(goodsid)){
+                        $("#SelectGoodsName").append("<option value='" + goods.id + "'  selected>"+ goods.goods_name+"</option>");
+                    }else {
+                        $("#SelectGoodsName").append("<option value='" + goods.id + "'>"+ goods.goods_name+"</option>");
+                    }
                 });
             }else {
                 alert(obj.msg);

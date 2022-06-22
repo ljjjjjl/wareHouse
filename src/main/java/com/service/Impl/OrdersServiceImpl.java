@@ -26,7 +26,7 @@ public class OrdersServiceImpl implements OrdersService {
             orders.setId(ordersDao.maxId());
             //生成随机数
             orders.setOrders_id(randomString.getRandomString(5)+orders.getId());
-            flag =ordersDao.update(orders);
+            flag =ordersDao.afterUpdate(orders);
         }else {
             throw new SqlException(Code.SQL_ADDGOODS_ERR,"新添货单失败");
         }

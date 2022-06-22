@@ -19,6 +19,10 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
 
+    /**
+     *
+     * 添加货品
+     */
     @PostMapping
     public Result save(@RequestBody Goods goods) {
         boolean flag =goodsService.UNIQUE(goods);
@@ -40,6 +44,10 @@ public class GoodsController {
         return new Result(code,flag,msg);
     }
 
+    /**
+     *
+     * 修改货品
+     */
     @PutMapping
     public Result update(@RequestBody Goods goods) {
         boolean flag =goodsService.UNIQUE(goods);
@@ -61,12 +69,20 @@ public class GoodsController {
         return new Result(code,flag,msg);
     }
 
+    /**
+     *
+     * 删除货品
+     */
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         boolean flag =goodsService.delete(id);
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
 
+    /**
+     *
+     * 模糊查询（没分页）
+     */
     @PatchMapping ("/{keyword}")
     public Result find(@PathVariable String keyword) {
         List<Goods> list =goodsService.find(keyword);
@@ -74,6 +90,10 @@ public class GoodsController {
         String msg = list!=null ?"":"数据查询失败！";
         return new Result(code,list,msg);
     }
+    /**
+     *
+     * 查询所有货品（没分页）
+     */
     @GetMapping
     public Result getAll() {
         List<Goods> list =goodsService.getAll();
@@ -81,6 +101,11 @@ public class GoodsController {
         String msg = list!=null ?"":"数据查询失败！";
         return new Result(code,list,msg);
     }
+
+    /**
+     *
+     * 通过id查找货品
+     */
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) {
         Goods goods =goodsService.getById(id);
@@ -89,6 +114,10 @@ public class GoodsController {
         return new Result(code,goods,msg);
     }
 
+    /**
+     *
+     * 分页
+     */
     @PostMapping("/page")
     public Result findByPage(@RequestBody PageInfo pageInfo) {
         PageInfo<Goods> pages =goodsService.findByPage(pageInfo.getCurrentPage());
@@ -97,6 +126,10 @@ public class GoodsController {
         return new Result(code,pages,msg);
     }
 
+    /**
+     *
+     * 查询的分页
+     */
     @PostMapping("/info")
     public Result search(@RequestBody PageInfo pageInfo){
         PageInfo<Goods> infos = goodsService.search(pageInfo.getInfo(),pageInfo.getCurrentPage());

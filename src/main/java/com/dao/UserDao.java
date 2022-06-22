@@ -45,12 +45,12 @@ public interface UserDao {
     List<User> findByPage(@Param("start") int start,@Param("size") int size);
 
     @Select("select count(*) from user where user_status=0 and " +
-            "(id like concat('%',#{keyword},'%') or user_id like concat('%',#{keyword},'%') or user_name like concat('%',#{keyword},'%')" +
+            "( user_id like concat('%',#{keyword},'%') or user_name like concat('%',#{keyword},'%')" +
             ")")
     int searchTotal(String keyword);
 
     @Select("select * from user where user_status=0 and " +
-            "(id like concat('%',#{keyword},'%') or user_id like concat('%',#{keyword},'%') or user_name like concat('%',#{keyword},'%'))" +
+            "( user_id like concat('%',#{keyword},'%') or user_name like concat('%',#{keyword},'%'))" +
             " limit #{start},#{size}")
     List<User> search(@Param("keyword")String keyword,@Param("start") int start,@Param("size") int size);
 }

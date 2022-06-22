@@ -21,19 +21,30 @@ public class UserController {
     @Autowired
     HttpServletRequest request;
 
-
+    /**
+     *
+     * 添加用户
+     */
     @PostMapping
     public Result save(@RequestBody User user) {
         boolean flag =userService.save(user);
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag,flag ? "新增用户成功":"新增用户失败");
     }
 
+    /**
+     *
+     * 更新用户
+     */
     @PutMapping
     public Result update(@RequestBody User user) {
         boolean flag =userService.update(user);
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
 
+    /**
+     *
+     * 修改密码
+     */
     @DeleteMapping
     public Result change(@RequestBody User user) {
         boolean flag =userService.change(user);
@@ -41,13 +52,19 @@ public class UserController {
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
 
-
+    /**
+     *
+     * 删除用户
+     */
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         boolean flag =userService.delete(id);
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
-
+    /**
+     *
+     * 通过id查找用户
+     */
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) {
         User user =userService.getById(id);
@@ -55,7 +72,10 @@ public class UserController {
         String msg = user!=null ? "":"getById查询失败！";
         return new Result(code,user,msg);
     }
-
+    /**
+     *
+     * 查询所有用户
+     */
     @GetMapping
     public Result getAll() {
         List<User> list =userService.getAll();
@@ -65,7 +85,10 @@ public class UserController {
     }
 
 
-
+    /**
+     *
+     * 登录
+     */
     @PostMapping({"/login"})
     public Result login(@RequestBody User user){
         User u =userService.login(user);
@@ -76,6 +99,10 @@ public class UserController {
         return new Result(code,u,msg);
     }
 
+    /**
+     *
+     * 注销
+     */
     @GetMapping("/logout")
     public Result logout() {
         Integer code = Code.SYSTEM_UNKNOW_ERR;
@@ -97,6 +124,10 @@ public class UserController {
         return new Result(code,username,msg);
     }
 
+    /**
+     *
+     * 获取当前用户
+     */
     @GetMapping("/username")
     public Result usernameshow(){
         Integer code = Code.SYSTEM_UNKNOW_ERR;
@@ -113,6 +144,10 @@ public class UserController {
         return new Result(code,u,msg);
     }
 
+    /**
+     *
+     * 分页
+     */
     @PostMapping("/page")
     public Result findByPage(@RequestBody PageInfo pageInfo) {
         PageInfo<User> pages =userService.findByPage(pageInfo.getCurrentPage());
@@ -121,6 +156,10 @@ public class UserController {
         return new Result(code,pages,msg);
     }
 
+    /**
+     *
+     * 查询的分页
+     */
     @PostMapping("/info")
     public Result search(@RequestBody PageInfo pageInfo){
         PageInfo<User> infos = userService.search(pageInfo.getInfo(),pageInfo.getCurrentPage());
